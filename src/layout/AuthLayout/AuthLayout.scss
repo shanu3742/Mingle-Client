@@ -1,0 +1,10 @@
+.activeLink{
+    padding: 10px 15px 10px 15px;
+    color: var(--mingle-primary-color);
+    border-bottom: 2px solid var(--mingle-primary-color);
+    font-weight: bold;
+    transition: 1s ease-in-out;
+}
+.inactiveLink{
+    padding: 10px 15px 10px 15px;
+}
