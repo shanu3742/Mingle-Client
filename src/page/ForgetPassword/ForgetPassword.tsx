@@ -4,14 +4,11 @@ import { AuthLayout } from "../../layout";
 import { Button, TextField } from "@mui/material";
 import OtpInput from "react-otp-input";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { onOtpRequest, onOtpVerify, onResetPassword } from "../../api";
+import { onForgetPasswordOtpRequest, onForgetPasswordOtpVerify, onResetPassword } from "../../api";
 import { ErrorToast, SuccessToast } from "../../utils";
 import { useNavigate } from "react-router-dom";
-import PasswordValidationList, {
-  onValidatedRules,
-  passwordRules,
-} from "../../component/PasswordValidationList/PasswordValidationList";
-import { mingleValidate, validationConfig } from "../../config";
+import PasswordValidationList from "../../component/PasswordValidationList/PasswordValidationList";
+import { mingleValidate, onStrongPasswordValidated, passwordRules, validationConfig } from "../../config";
 const ForgetPassword = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
@@ -22,7 +19,7 @@ const ForgetPassword = () => {
   const [loginAttemptRemaning, setLoginAttemptRemaning] = useState(5);
   const navigate = useNavigate();
 
-  const validatedRules = onValidatedRules(password);
+  const validatedRules = onStrongPasswordValidated(password);
   const isResetDisabled =
     validatedRules.length < passwordRules.length ||
     password !== confirmPassword;
@@ -34,7 +31,7 @@ const ForgetPassword = () => {
         ErrorToast(validation.errors);
         return
       }
-      const otpMessage = await onOtpRequest({ email });
+      const otpMessage = await onForgetPasswordOtpRequest({ email });
       setOtpSent(true);
       SuccessToast(otpMessage.message);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,7 +42,7 @@ const ForgetPassword = () => {
   };
   const verifyOtp = useCallback(async () => {
     try {
-      const otpMessage = await onOtpVerify({ email, otp });
+      const otpMessage = await onForgetPasswordOtpVerify({ email, otp });
       setOtpVerified(otpMessage.verified);
       SuccessToast(otpMessage.message);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -92,7 +89,7 @@ const ForgetPassword = () => {
                 id="email"
                 name="email"
                 autoComplete="email"
-                label="Enter Email/User ID"
+                label="Enter Email"
                 variant="outlined"
                 size="small"
                 fullWidth

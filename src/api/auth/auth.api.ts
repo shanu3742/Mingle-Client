@@ -5,6 +5,25 @@ const authApi = axios.create({
   baseURL: `${APP_CONFIG.backend_uri}/chat/api/v1/user/`,
 });
 
+const onRegister = async ({ email, password ,userId,otp}:{email:string, password:string,userId:string,otp:string}) => {
+  try {
+    const result = await authApi.post("signup", {
+      email: email,
+      password: password,
+      userId,
+      otp
+    });
+    const data = result.data;
+    return Promise.resolve(data);
+  } catch (e) {
+    let errorMessage='An unexpected error occurred';
+    if(axios.isAxiosError(e)){
+       errorMessage  = e?.response?.data?.message || e?.message ;
+    }     
+    return Promise.reject({errorMessage,error:e});
+  }
+};
+
 const onLogin = async ({ email, password }:{email:string, password:string}) => {
   try {
     const result = await authApi.post("login", {
@@ -57,4 +76,4 @@ const onResetPassword = async ({ email, password, otp }:{email:string, password:
   }
 };
 
-export { onLogin, onGoogleLogin, onResetPassword };
+export { onLogin, onGoogleLogin, onResetPassword,onRegister };

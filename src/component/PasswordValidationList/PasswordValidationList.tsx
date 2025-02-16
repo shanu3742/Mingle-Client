@@ -1,32 +1,10 @@
 import { LinearProgress } from "@mui/material";
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
+import { onStrongPasswordValidated, passwordRules } from "../../config";
 
-export const passwordRules = [
-  { message: "Minimum 8 characters", validate: (value:string) => value.length >= 8 },
-  {
-    message: "At least one uppercase letter",
-    validate: (value:string) => /[A-Z]/.test(value),
-  },
-  {
-    message: "At least one lowercase letter",
-    validate: (value:string) => /[a-z]/.test(value),
-  },
-  {
-    message: "At least one number",
-    validate: (value:string) => /[0-9]/.test(value),
-  },
-  {
-    message: "At least one special character",
-    validate: (value:string) => /[@$!%*?&]/.test(value),
-  },
-];
-
-export const onValidatedRules = (password:string) => {
-  return passwordRules.filter(({ validate }) => validate(password));
-};
 const PasswordValidationList = ({ password }:{password:string}) => {
-  const validatedRules = onValidatedRules(password);
+  const validatedRules = onStrongPasswordValidated(password);
   return (
     <>
       <div>
