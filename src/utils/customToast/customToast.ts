@@ -22,9 +22,9 @@ const showToast = (message:string, type = 'success', options = {}) => {
   };
   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const ErrorToast = (message:string, options:any) => showToast(message, 'error', options);
+  const ErrorToast = (message:string, options?:any) => showToast(message, 'error', options);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const SuccessToast = (message:string, options:any) => showToast(message, 'success', options);
+  const SuccessToast = (message:string, options?:any) => showToast(message, 'success', options);
 
   export {ErrorToast,SuccessToast }
   

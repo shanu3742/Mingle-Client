@@ -11,7 +11,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 //app file import
 import { AuthLayout } from '../../layout';
 import { ErrorToast } from '../../utils';
-import { loginValidationConfig , validate} from '../../config';
+import {mingleValidate, validationConfig} from '../../config';
 import useAuth from '../../hooks/useAuth';
 
 
@@ -31,7 +31,7 @@ const handleClickShowPassword = () => setShowPassword((show) => !show);
 
 const onUserLogin =  (e:FormEvent) => {
     e.preventDefault()
-    const validation = validate(loginInfo, loginValidationConfig.loginInfoRules, loginValidationConfig.loginInfoMessages);
+    const validation = mingleValidate(loginInfo,validationConfig.login.rule,validationConfig.login.message);
     if(!validation.isValid){
       ErrorToast(validation.errors);
       return

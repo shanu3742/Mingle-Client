@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import  { useCallback, useEffect, useState } from "react";
 import "./ForgetPassword.scss";
 import { AuthLayout } from "../../layout";
 import { Button, TextField } from "@mui/material";
@@ -11,6 +11,7 @@ import PasswordValidationList, {
   onValidatedRules,
   passwordRules,
 } from "../../component/PasswordValidationList/PasswordValidationList";
+import { mingleValidate, validationConfig } from "../../config";
 const ForgetPassword = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
@@ -28,6 +29,11 @@ const ForgetPassword = () => {
 
   const sendOtp = async () => {
     try {
+      const validation = mingleValidate({email},validationConfig.forgetPassword.rule,validationConfig.forgetPassword.message);
+      if(!validation.isValid){
+        ErrorToast(validation.errors);
+        return
+      }
       const otpMessage = await onOtpRequest({ email });
       setOtpSent(true);
       SuccessToast(otpMessage.message);
@@ -37,7 +43,7 @@ const ForgetPassword = () => {
       ErrorToast(e.errorMessage);
     }
   };
-  const verifyOtp = async () => {
+  const verifyOtp = useCallback(async () => {
     try {
       const otpMessage = await onOtpVerify({ email, otp });
       setOtpVerified(otpMessage.verified);
@@ -47,7 +53,7 @@ const ForgetPassword = () => {
       setOtpVerified(false);
       ErrorToast(e.errorMessage);
     }
-  };
+  },[email,otp]);
 
   const handleResetPassword = async () => {
     try {
@@ -62,6 +68,11 @@ const ForgetPassword = () => {
       ErrorToast(errorMessage);
     }
   };
+  useEffect(() =>{
+    if(otp.length===4){
+      verifyOtp()
+    }
+  },[otp,verifyOtp])
   return (
     <AuthLayout
       pageTitle="Forget Password"
@@ -86,7 +97,9 @@ const ForgetPassword = () => {
                 size="small"
                 fullWidth
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                }}
               />
             </div>
             <div className="flex my-4">
@@ -102,7 +115,9 @@ const ForgetPassword = () => {
             <div className="my-4 flex flex-col justify-center items-center">
               <OtpInput
                 value={otp}
-                onChange={setOtp}
+                onChange={(e) => {
+                  setOtp(e)      
+                }}
                 numInputs={4}
                 renderSeparator={<span>-</span>}
                 renderInput={(props) => (
