@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { APP_CONFIG } from '../../config';
 const authApi = axios.create({
-    baseURL:`${APP_CONFIG.backend_uri}/chat/api/v1/user/`
+    baseURL:`${APP_CONFIG.backend_uri}/chat/api/v1/user/`,
+    withCredentials: true
 })
 
 const onForgetPasswordOtpRequest = async ({email}:{email:string}) => {

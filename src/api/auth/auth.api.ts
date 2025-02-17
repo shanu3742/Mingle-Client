@@ -3,6 +3,7 @@ import { APP_CONFIG } from "../../config";
 
 const authApi = axios.create({
   baseURL: `${APP_CONFIG.backend_uri}/chat/api/v1/user/`,
+  withCredentials: true
 });
 
 const onRegister = async ({ email, password ,userId,otp}:{email:string, password:string,userId:string,otp:string}) => {
