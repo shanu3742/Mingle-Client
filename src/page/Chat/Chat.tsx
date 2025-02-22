@@ -1,4 +1,3 @@
-import React from 'react'
 import Message from '../Message/Message'
 import useAuth from '../../hooks/useAuth'
 
@@ -9,7 +8,7 @@ const Chat = () => {
   return (
     <>
     <Message />
-    <button onClick={logout}>logout</button>
+    <button onClick={() =>logout()}>logout</button>
     </>
  
   )

@@ -1,6 +1,6 @@
 //react import
 import React, { FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 //material ui import 
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
@@ -17,7 +17,7 @@ import useAuth from '../../hooks/useAuth';
 
 const SignIn = () => {
 // state define 
-const {login,isLoginPending} = useAuth();
+const {login,isLoginPending,user} = useAuth();
 const navigate = useNavigate()
 
 const [loginInfo,setLoginInfo] =useState({
@@ -49,6 +49,9 @@ const onUserLogin =  (e:FormEvent) => {
   }
 
 // page ui
+if(user){
+ return <Navigate to={'/app/chat'} replace />
+}else{
   return (
     <AuthLayout pageTitle='Login here' pageDescription='Welcome back you’ve been missed!' descriptionClassName='mingle-font-normal font-bold'>
     <form className='py-4 px-4 relative' onSubmit={onUserLogin}  >
@@ -92,7 +95,9 @@ const onUserLogin =  (e:FormEvent) => {
       </div>
     </form>
     </AuthLayout>
-  )
+  ) 
+}
+ 
 }
 
 export default SignIn

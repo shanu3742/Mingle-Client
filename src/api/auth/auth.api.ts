@@ -76,5 +76,32 @@ const onResetPassword = async ({ email, password, otp }:{email:string, password:
     return Promise.reject({errorMessage,error:e});
   }
 };
-
-export { onLogin, onGoogleLogin, onResetPassword,onRegister };
+const onAutoLogin = async () => {
+  try {
+    const result = await authApi.get("auto-login");
+    const data = result.data;
+    return Promise.resolve(data);
+  } catch (e) {
+    let errorMessage='An unexpected error occurred';
+    if(axios.isAxiosError(e)){
+       errorMessage  = e?.response?.data?.message || e?.message ;
+    }     
+    return Promise.reject({errorMessage,error:e});
+  }
+};
+const onLogOut = async () => {
+  try {
+    const result = await authApi.get("logout");
+    const data = result.data;
+    return Promise.resolve(data);
+  } catch (e) {
+    let errorMessage='An unexpected error occurred';
+    if(axios.isAxiosError(e)){
+       errorMessage  = e?.response?.data?.message || e?.message ;
+    }     
+    return Promise.reject({errorMessage,error:e});
+  }
+};
+// /auto-login
+// logout
+export { onLogin,onLogOut, onGoogleLogin, onResetPassword,onRegister,onAutoLogin };

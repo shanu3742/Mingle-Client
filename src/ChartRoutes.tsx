@@ -1,17 +1,18 @@
 //react import
-import React from 'react'
+import  { memo } from 'react'
 //react router import
 import {  Routes, Route, Navigate } from 'react-router-dom';
 //app file import
-import ProtectedRoutes from './src/guard/ProtectedRoutes';
-import SignIn from './src/page/SignIn/SignIn';
-import SignUp from './src/page/SignUp/SignUp';
-import Chat from './src/page/Chat/Chat';
-import ForgetPassword from './src/page/ForgetPassword/ForgetPassword';
-import PageNotFound from './src/page/PageNotFound/PageNotFound';
+import ProtectedRoutes from './guard/ProtectedRoutes';
+import SignIn from './page/SignIn/SignIn';
+import SignUp from './page/SignUp/SignUp';
+import Chat from './page/Chat/Chat';
+import ForgetPassword from './page/ForgetPassword/ForgetPassword';
+import PageNotFound from './page/PageNotFound/PageNotFound';
+
 
 const ChatRoutes = () => {
-  
+
   return (   
   <Routes >
      <Route path="/" element={<Navigate to="/app/chat" replace />} />
@@ -29,4 +30,4 @@ const ChatRoutes = () => {
   )
 }
 
-export default ChatRoutes
+export default memo(ChatRoutes)
