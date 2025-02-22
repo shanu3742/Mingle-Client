@@ -92,3 +92,10 @@ const useAuth = () => {
     user:queryClient.getQueryData(['auth','login'])}
 }
 export default useAuth;
+
+export interface UserInterface {
+  name:string;
+  userId:string;
+  email:string;
+  isFullDetais:boolean
+}

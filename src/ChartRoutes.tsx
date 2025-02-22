@@ -18,7 +18,9 @@ const ChatRoutes = () => {
      <Route path="/" element={<Navigate to="/app/chat" replace />} />
      <Route element={<ProtectedRoutes defaultPath={"/app/user/signin"} />}>
        <Route path="/app/chat" element={<Chat />} />
+       <Route path="/app/user/fulldetails" element={<h1>fill your details</h1>} />
      </Route>
+    
      <Route path="/app/user/signin" element={ <SignIn />} />
      <Route path="/app/user/signup" element={<SignUp />} />
      <Route path="/app/user/forgetpassword" element={<ForgetPassword />} />
