@@ -1,10 +1,10 @@
 import Message from '../Message/Message'
-import useAuth from '../../hooks/useAuth'
+import { AuthInterface, useAuth } from '../../context/authContext'
 
 
 const Chat = () => {
   // console.log(userData)
-  const {logout} = useAuth()
+  const {logout} = useAuth() as AuthInterface
   return (
     <>
     <Message />

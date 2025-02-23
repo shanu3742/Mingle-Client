@@ -13,7 +13,7 @@ import { ResizeContextInterface, useResizeContext } from "../../context/resizeCo
 import LoginSvg from "../../Assets/auth.svg";
 import { FirebaseContextType, useFirebaseContext } from "../../context/firebaseContext";
 import { ErrorToast } from "../../utils";
-import useAuth from "../../hooks/useAuth";
+import { AuthInterface, useAuth } from "../../context/authContext";
 import BackButton from "../../component/BackButton/BackButton";
 
 const AuthLayout = ({
@@ -33,7 +33,7 @@ const AuthLayout = ({
   //context and third party hooks
   const deviceDimension = useResizeContext() as ResizeContextInterface;
   const { auth, fbProvider } = useFirebaseContext() as FirebaseContextType;
-  const { googleLogin, loginAttempt } = useAuth();
+  const { googleLogin, loginAttempt } = useAuth() as AuthInterface;
 
   console.log(loginAttempt);
   const handleGoogleLogin = async () => {
@@ -44,7 +44,8 @@ const AuthLayout = ({
       googleLogin({
         googleToken: googleToken,
       });
-    } catch (err) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err:any) {
       ErrorToast(err);
     }
   };

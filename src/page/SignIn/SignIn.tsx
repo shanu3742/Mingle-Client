@@ -12,12 +12,12 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { AuthLayout } from '../../layout';
 import { ErrorToast } from '../../utils';
 import {mingleValidate, validationConfig} from '../../config';
-import useAuth from '../../hooks/useAuth';
+import { AuthInterface, useAuth } from '../../context/authContext';
 
 
 const SignIn = () => {
 // state define 
-const {login,isLoginPending,user} = useAuth();
+const {login,isLoginPending,user} = useAuth() as AuthInterface;
 const navigate = useNavigate()
 
 const [loginInfo,setLoginInfo] =useState({

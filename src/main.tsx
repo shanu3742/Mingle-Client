@@ -10,12 +10,15 @@ import './index.scss';
 import { ResizeProvider } from './context/index.ts';
 import FireBaseProvider from './context/firebaseContext.tsx';
 
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <FireBaseProvider>
       <BrowserRouter>
         <ResizeProvider>
-          <App />
+          
+              <App />
+        
         </ResizeProvider>
       </BrowserRouter>
     </FireBaseProvider>

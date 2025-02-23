@@ -10,19 +10,26 @@ import './App.css';
 ////app file import 
 import ChatRoutes from './ChartRoutes';
 import { PageSliderLayout } from './layout';
+import { AuthProvider } from './context/authContext';
+
 
 
 
 function App() {
   const queryClient = new QueryClient();
+  
  
   return (
     <QueryClientProvider client={queryClient}>
         <div className="App">
           <ToastContainer />
+          <AuthProvider>
           <PageSliderLayout>
-            <ChatRoutes  />
+            
+              <ChatRoutes  />
+          
           </PageSliderLayout>
+          </AuthProvider>
         </div>
         <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
