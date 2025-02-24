@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { QueryFilters, UseMutateFunction, useMutation, useQueryClient } from "@tanstack/react-query";
 import { onGoogleLogin, onLogin, onAutoLogin, onLogOut } from "../api/auth/auth.api";
@@ -9,19 +7,14 @@ import { APP_CONFIG } from "../config";
 
 const AuthContext= createContext<AuthInterface|null>(null);
 
-
-
 export const AuthProvider = ({ children }:{children:React.ReactNode}) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const location = useLocation();
   const [isAutoLoginLoading,setIsAutoLoginLoaading] = useState(true);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const loginNavigation = (data:any) => {
-    console.log('navigatin',data)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if(data && !(data as any).isFullDetais){
+    if(data && !(data).isFullDetais){
         console.log('inside')
         navigate('/app/onboarding')
       }else{
@@ -30,7 +23,6 @@ export const AuthProvider = ({ children }:{children:React.ReactNode}) => {
       }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSuccess = useCallback((data:any) => {
     SuccessToast("Login Successful");
     queryClient.setQueryData(["auth", "login"], data);
@@ -43,7 +35,6 @@ export const AuthProvider = ({ children }:{children:React.ReactNode}) => {
     navigate("/app/user/signin");
   },[]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleError =useCallback( (err:any) => {
     const { errorMessage, error } = err;
     const loginAttemptRemaining = error?.response?.headers["ratelimit-remaining"];
@@ -92,7 +83,6 @@ export const AuthProvider = ({ children }:{children:React.ReactNode}) => {
         }
        
         
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err:any) {
         const { errorMessage } = err;
         console.warn(errorMessage);

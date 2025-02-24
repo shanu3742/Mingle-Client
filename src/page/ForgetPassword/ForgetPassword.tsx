@@ -34,7 +34,6 @@ const ForgetPassword = () => {
       const otpMessage = await onForgetPasswordOtpRequest({ email });
       setOtpSent(true);
       SuccessToast(otpMessage.message);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e:any) {
       setOtpSent(false);
       ErrorToast(e.errorMessage);
@@ -45,7 +44,6 @@ const ForgetPassword = () => {
       const otpMessage = await onForgetPasswordOtpVerify({ email, otp });
       setOtpVerified(otpMessage.verified);
       SuccessToast(otpMessage.message);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e:any) {
       setOtpVerified(false);
       ErrorToast(e.errorMessage);
@@ -57,7 +55,6 @@ const ForgetPassword = () => {
       const otpMessage = await onResetPassword({ email, password, otp });
       SuccessToast(otpMessage.message);
       navigate("/app/user/signin");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e:any) {
       const { errorMessage, error } = e;
       const loginAttemptRemaning = error.response.headers["ratelimit-remaining"];

@@ -44,7 +44,6 @@ const AuthLayout = ({
       googleLogin({
         googleToken: googleToken,
       });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err:any) {
       ErrorToast(err);
     }

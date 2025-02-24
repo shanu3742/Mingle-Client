@@ -61,7 +61,6 @@ const SignUp = () => {
       const otpMessage = await onSignupOtpRequest({ email:registerInfo.email });
       setOtpSent(true);
       SuccessToast(otpMessage.message);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e:any) {
       setOtpSent(false);
       ErrorToast(e.errorMessage);
@@ -72,7 +71,6 @@ const SignUp = () => {
       const otpMessage = await onSignupOtpVerify({ email:registerInfo.email, otp });
       setOtpVerified(otpMessage.verified);
       SuccessToast(otpMessage.message);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e:any) {
       setOtpVerified(false);
       ErrorToast(e.errorMessage);
@@ -98,7 +96,6 @@ const SignUp = () => {
         setIsRegisterPending(false)
         SuccessToast(otpMessage.message);
         navigate("/app/user/signin");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (e:any) {
         setIsRegisterPending(false)
         ErrorToast(e.errorMessage);
