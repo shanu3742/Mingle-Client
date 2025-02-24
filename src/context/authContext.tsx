@@ -1,9 +1,9 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { QueryFilters, UseMutateFunction, useMutation, useQueryClient } from "@tanstack/react-query";
-import { onGoogleLogin, onLogin, onAutoLogin, onLogOut } from "../api/auth/auth.api";
-import { SuccessToast, ErrorToast } from "../utils";
+import { SuccessToast, ErrorToast } from "@utils/customToast";
 import { useLocation, useNavigate } from "react-router-dom";
-import { APP_CONFIG } from "../config";
+import  APP_CONFIG  from "@config/app.config";
+import { onGoogleLogin, onLogin, onAutoLogin, onLogOut } from "@api/auth";
 
 const AuthContext= createContext<AuthInterface|null>(null);
 

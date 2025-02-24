@@ -1,14 +1,16 @@
 import  { useCallback, useEffect, useState } from "react";
 import "./ForgetPassword.scss";
-import { AuthLayout } from "../../layout";
+import AuthLayout from "@layout/AuthLayout";
 import { Button, TextField } from "@mui/material";
 import OtpInput from "react-otp-input";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { onForgetPasswordOtpRequest, onForgetPasswordOtpVerify, onResetPassword } from "../../api";
-import { ErrorToast, SuccessToast } from "../../utils";
+import { ErrorToast ,SuccessToast} from "@utils/customToast";
 import { useNavigate } from "react-router-dom";
-import PasswordValidationList from "../../component/PasswordValidationList/PasswordValidationList";
-import { mingleValidate, onStrongPasswordValidated, passwordRules, validationConfig } from "../../config";
+import PasswordValidationList from "@component/PasswordValidationList";
+import { mingleValidate, onStrongPasswordValidated, passwordRules, validationConfig } from "@config/validation.config";
+import { onForgetPasswordOtpRequest, onForgetPasswordOtpVerify } from "@api/otp";
+import { onResetPassword } from "@api/auth";
+
 const ForgetPassword = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);

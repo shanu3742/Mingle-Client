@@ -1,7 +1,7 @@
 import LoadingButton from '@mui/lab/LoadingButton'
 import  { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { APP_CONFIG } from '../../config';
+import  APP_CONFIG  from '@config/app.config';
 
 const PageNotFound = () => {
  const [countDownTimer, setCountDownTimer] = useState(APP_CONFIG.auto_redirect);

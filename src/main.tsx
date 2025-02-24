@@ -7,8 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 //import scss
 import './index.scss';
 //app file import
-import { ResizeProvider } from './context/index.ts';
-import FireBaseProvider from './context/firebaseContext.tsx';
+import ResizeProvider  from '@context/resizeContext';
+import FireBaseProvider from '@context/firebaseContext';
 
 
 createRoot(document.getElementById('root')!).render(
@@ -16,9 +16,7 @@ createRoot(document.getElementById('root')!).render(
     <FireBaseProvider>
       <BrowserRouter>
         <ResizeProvider>
-          
               <App />
-        
         </ResizeProvider>
       </BrowserRouter>
     </FireBaseProvider>

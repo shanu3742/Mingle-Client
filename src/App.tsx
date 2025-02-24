@@ -9,8 +9,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import './App.css';
 ////app file import 
 import ChatRoutes from './ChartRoutes';
-import { PageSliderLayout } from './layout';
-import { AuthProvider } from './context/authContext';
+import PageSliderLayout from '@layout/PageSliderLayout';
+import { AuthProvider } from '@context/authContext';
 
 
 

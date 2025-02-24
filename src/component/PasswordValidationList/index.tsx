@@ -1,7 +1,7 @@
 import { LinearProgress } from "@mui/material";
 import { RxCross2 } from "react-icons/rx";
 import { FaCheck } from "react-icons/fa6";
-import { onStrongPasswordValidated, passwordRules } from "../../config";
+import { onStrongPasswordValidated, passwordRules } from "@config/validation.config";
 
 const PasswordValidationList = ({ password }:{password:string}) => {
   const validatedRules = onStrongPasswordValidated(password);

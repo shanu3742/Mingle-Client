@@ -1,7 +1,7 @@
 //react import
 import React, { useCallback, useEffect, useState } from "react";
 //app file import
-import { AuthLayout } from "../../layout";
+import AuthLayout from "@layout/AuthLayout";
 import {
   Button,
   FormControl,
@@ -15,13 +15,13 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import LoadingButton from "@mui/lab/LoadingButton";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import PasswordValidationList from "../../component/PasswordValidationList/PasswordValidationList";
+import PasswordValidationList from "@component/PasswordValidationList";
 import OTPInput from "react-otp-input";
-import { mingleValidate, onStrongPasswordValidated, passwordRules, validationConfig } from "../../config";
-import { ErrorToast, SuccessToast } from "../../utils";
-import { onSignupOtpRequest, onSignupOtpVerify } from "../../api";
-import { onRegister } from "../../api/auth/auth.api";
+import { mingleValidate, onStrongPasswordValidated, passwordRules, validationConfig } from "@config/validation.config";
+import { ErrorToast ,SuccessToast} from "@utils/customToast";
+import { onRegister } from "../../api/auth";
 import { useNavigate } from "react-router";
+import {  onSignupOtpRequest, onSignupOtpVerify } from "@api/otp";
 
 const SignUp = () => {
   const [registerInfo, setRegisterInfo] = useState({

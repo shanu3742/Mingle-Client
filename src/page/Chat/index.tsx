@@ -1,5 +1,5 @@
-import Message from '../Message/Message'
-import { AuthInterface, useAuth } from '../../context/authContext'
+import Message from '@page/Message'
+import { AuthInterface, useAuth } from '@context/authContext'
 
 
 const Chat = () => {

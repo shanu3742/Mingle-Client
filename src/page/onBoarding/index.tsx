@@ -1,4 +1,4 @@
-import { AuthInterface, useAuth } from "../../context/authContext"
+import { AuthInterface, useAuth } from "@context/authContext"
 
 const OnBoarding = () => {
     const {logout} = useAuth() as AuthInterface

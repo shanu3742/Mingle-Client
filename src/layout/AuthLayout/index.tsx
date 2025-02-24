@@ -12,9 +12,9 @@ import "./AuthLayout.scss";
 import { ResizeContextInterface, useResizeContext } from "../../context/resizeContext";
 import LoginSvg from "../../Assets/auth.svg";
 import { FirebaseContextType, useFirebaseContext } from "../../context/firebaseContext";
-import { ErrorToast } from "../../utils";
-import { AuthInterface, useAuth } from "../../context/authContext";
-import BackButton from "../../component/BackButton/BackButton";
+import { ErrorToast} from "@utils/customToast";
+import { AuthInterface, useAuth } from "@context/authContext";
+import BackButton from "@component/BackButton";
 
 const AuthLayout = ({
   pageTitle = "title of Page",

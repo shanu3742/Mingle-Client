@@ -9,10 +9,10 @@ import { Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedIn
 import LoginIcon from '@mui/icons-material/Login';
 import LoadingButton from '@mui/lab/LoadingButton';
 //app file import
-import { AuthLayout } from '../../layout';
-import { ErrorToast } from '../../utils';
-import {mingleValidate, validationConfig} from '../../config';
-import { AuthInterface, useAuth } from '../../context/authContext';
+import AuthLayout from "@layout/AuthLayout";
+import { ErrorToast } from "@utils/customToast";
+import {mingleValidate, validationConfig} from '@config/validation.config';
+import { AuthInterface, useAuth } from '@context/authContext';
 
 
 const SignIn = () => {

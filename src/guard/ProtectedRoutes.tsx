@@ -2,8 +2,8 @@
 import  { ReactNode } from "react";
 //react router import 
 import { Navigate, Outlet } from "react-router-dom";
-import { AuthInterface, useAuth } from "../context/authContext";
-import Landing from "../page/Landing/Landing";
+import { AuthInterface, useAuth } from "@context/authContext";
+import Landing from "../page/Landing";
 //app file import
 
 const ProtectedRoutes = ({ defaultPath = "/app/user/signin", children }:{defaultPath?:string,children?:ReactNode}) => {

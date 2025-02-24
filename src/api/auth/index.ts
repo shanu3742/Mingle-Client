@@ -1,5 +1,5 @@
 import axios from "axios";
-import { APP_CONFIG } from "../../config";
+import  APP_CONFIG  from "@config/app.config";
 
 const authApi = axios.create({
   baseURL: `${APP_CONFIG.backend_uri}/chat/api/v1/user/`,

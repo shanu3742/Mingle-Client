@@ -3,14 +3,14 @@ import  { memo } from 'react'
 //react router import
 import {  Routes, Route, Navigate } from 'react-router-dom';
 //app file import
-import ProtectedRoutes from './guard/ProtectedRoutes';
-import SignIn from './page/SignIn/SignIn';
-import SignUp from './page/SignUp/SignUp';
-import Chat from './page/Chat/Chat';
-import ForgetPassword from './page/ForgetPassword/ForgetPassword';
-import PageNotFound from './page/PageNotFound/PageNotFound';
-import OnBoarding from './page/onBoarding/OnBoarding';
-import Landing from './page/Landing/Landing';
+import ProtectedRoutes from '@guard/ProtectedRoutes';
+import SignUp from '@page/SignUp';
+import Chat from '@page/Chat';
+import ForgetPassword from '@page/ForgetPassword';
+import PageNotFound from '@page/PageNotFound';
+import OnBoarding from '@page/onBoarding';
+import Landing from '@page/Landing';
+import SignIn from '@page/SignIn';
 
 
 const ChatRoutes = () => {
