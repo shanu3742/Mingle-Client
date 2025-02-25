@@ -1,5 +1,6 @@
 import axios from 'axios'
 import  APP_CONFIG  from '@config/app.config';
+import { ServerErrorInterface } from 'src/shared/interfaces/commonInterface';
 const authApi = axios.create({
     baseURL:`${APP_CONFIG.backend_uri}/chat/api/v1/user/`,
     withCredentials: true
@@ -17,7 +18,7 @@ const onForgetPasswordOtpRequest = async ({email}:{email:string}) => {
         if(axios.isAxiosError(e)){
            errorMessage  = e?.response?.data?.message || e?.message ;
         }     
-        return Promise.reject({errorMessage,error:e});
+        return Promise.reject<ServerErrorInterface>({errorMessage,error:e});
     }
 
 }
@@ -35,7 +36,7 @@ const onForgetPasswordOtpVerify = async ({email,otp}:{email:string,otp:string}) 
         if(axios.isAxiosError(e)){
            errorMessage  = e?.response?.data?.message || e?.message ;
         }     
-        return Promise.reject({errorMessage,error:e});
+        return Promise.reject<ServerErrorInterface>({errorMessage,error:e});
     }
 
 }
@@ -52,7 +53,7 @@ const onSignupOtpRequest = async ({email}:{email:string}) => {
         if(axios.isAxiosError(e)){
            errorMessage  = e?.response?.data?.message || e?.message ;
         }     
-        return Promise.reject({errorMessage,error:e});
+        return Promise.reject<ServerErrorInterface>({errorMessage,error:e});
     }
 
 }
@@ -70,7 +71,7 @@ const onSignupOtpVerify = async ({email,otp}:{email:string,otp:string}) => {
         if(axios.isAxiosError(e)){
            errorMessage  = e?.response?.data?.message || e?.message ;
         }     
-        return Promise.reject({errorMessage,error:e});
+        return Promise.reject<ServerErrorInterface>({errorMessage,error:e});
     }
 
 }

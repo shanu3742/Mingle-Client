@@ -18,17 +18,18 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import PasswordValidationList from "@component/PasswordValidationList";
 import OTPInput from "react-otp-input";
 import { mingleValidate, onStrongPasswordValidated, passwordRules, validationConfig } from "@config/validation.config";
-import { ErrorToast ,SuccessToast} from "@utils/customToast";
+import { ErrorToast, SuccessToast } from "@utils/customToast";
 import { onRegister } from "../../api/auth";
 import { useNavigate } from "react-router";
-import {  onSignupOtpRequest, onSignupOtpVerify } from "@api/otp";
+import { onSignupOtpRequest, onSignupOtpVerify } from "@api/otp";
+import { ServerErrorInterface } from "src/shared/interfaces/commonInterface";
 
 const SignUp = () => {
   const [registerInfo, setRegisterInfo] = useState({
     email: "",
     confirmPassword: "",
     password: "",
-    userId:""
+    userId: ""
   });
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
@@ -40,67 +41,67 @@ const SignUp = () => {
   // event handle
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const onInputUpdate = (event:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onInputUpdate = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setRegisterInfo((p) => {
       return { ...p, [name]: value };
     });
   };
   console.log("register info", registerInfo);
-    const validatedRules = onStrongPasswordValidated(registerInfo.password);
-   const isResetDisabled =
-      validatedRules.length < passwordRules.length ||
-      registerInfo.password !== registerInfo.confirmPassword;
+  const validatedRules = onStrongPasswordValidated(registerInfo.password);
+  const isResetDisabled =
+    validatedRules.length < passwordRules.length ||
+    registerInfo.password !== registerInfo.confirmPassword;
   const sendOtp = async () => {
     try {
-      const validation = mingleValidate({email:registerInfo.email},validationConfig.forgetPassword.rule,validationConfig.forgetPassword.message);
-      if(!validation.isValid){
+      const validation = mingleValidate({ email: registerInfo.email }, validationConfig.forgetPassword.rule, validationConfig.forgetPassword.message);
+      if (!validation.isValid) {
         ErrorToast(validation.errors);
         return
       }
-      const otpMessage = await onSignupOtpRequest({ email:registerInfo.email });
+      const otpMessage = await onSignupOtpRequest({ email: registerInfo.email });
       setOtpSent(true);
       SuccessToast(otpMessage.message);
-    } catch (e:any) {
+    } catch (e) {
       setOtpSent(false);
-      ErrorToast(e.errorMessage);
+      ErrorToast((e as ServerErrorInterface).errorMessage);
     }
   };
   const verifyOtp = useCallback(async () => {
     try {
-      const otpMessage = await onSignupOtpVerify({ email:registerInfo.email, otp });
+      const otpMessage = await onSignupOtpVerify({ email: registerInfo.email, otp });
       setOtpVerified(otpMessage.verified);
       SuccessToast(otpMessage.message);
-    } catch (e:any) {
+    } catch (e) {
       setOtpVerified(false);
-      ErrorToast(e.errorMessage);
+      ErrorToast((e as ServerErrorInterface).errorMessage);
     }
-  },[registerInfo.email,otp]);
+  }, [registerInfo.email, otp]);
 
-    useEffect(() =>{
-      if(otp.length===4){
-        verifyOtp()
-      }
-    },[otp,verifyOtp])
+  useEffect(() => {
+    if (otp.length === 4) {
+      verifyOtp()
+    }
+  }, [otp, verifyOtp])
 
-    const registerAccount = async () => {
-      try {
-        setIsRegisterPending(true)
-        const validation = mingleValidate({ email:registerInfo.email,password:registerInfo.password,userId:registerInfo.userId,otp:otp,confirmPassword:registerInfo.confirmPassword },validationConfig.signUp.rule,validationConfig.signUp.message);
-        if(!validation.isValid){
-          ErrorToast(validation.errors);
-          setIsRegisterPending(false)
-          return
-        }
-        const otpMessage = await onRegister({ email:registerInfo.email,password:registerInfo.password,userId:registerInfo.userId,otp:otp });
+  const registerAccount = async () => {
+    try {
+      setIsRegisterPending(true)
+      const validation = mingleValidate({ email: registerInfo.email, password: registerInfo.password, userId: registerInfo.userId, otp: otp, confirmPassword: registerInfo.confirmPassword }, validationConfig.signUp.rule, validationConfig.signUp.message);
+      if (!validation.isValid) {
+        ErrorToast(validation.errors);
         setIsRegisterPending(false)
-        SuccessToast(otpMessage.message);
-        navigate("/app/user/signin");
-      } catch (e:any) {
-        setIsRegisterPending(false)
-        ErrorToast(e.errorMessage);
+        return
       }
-    };   
+      const otpMessage = await onRegister({ email: registerInfo.email, password: registerInfo.password, userId: registerInfo.userId, otp: otp });
+      setIsRegisterPending(false)
+      SuccessToast(otpMessage.message);
+      navigate("/app/user/signin");
+    } catch (e) {
+      setIsRegisterPending(false)
+      ErrorToast((e as ServerErrorInterface).errorMessage);
+    }
+  };
   return (
     <AuthLayout
       pageTitle="Create Account"
@@ -122,10 +123,10 @@ const SignUp = () => {
         </div>
         {
           !otpSent && <div className="flex my-4">
-          <Button variant="text" sx={{ pt: 0, pb: 0 }} onClick={sendOtp}>
-            <span className="underline mingle-font-x-small">Send OTP</span>
-          </Button>
-        </div>
+            <Button variant="text" sx={{ pt: 0, pb: 0 }} onClick={sendOtp}>
+              <span className="underline mingle-font-x-small">Send OTP</span>
+            </Button>
+          </div>
         }
         {otpSent && !otpVerified && (
           <>
@@ -133,7 +134,7 @@ const SignUp = () => {
               <OTPInput
                 value={otp}
                 onChange={(e) => {
-                  setOtp(e)      
+                  setOtp(e)
                 }}
                 numInputs={4}
                 renderSeparator={<span>-</span>}
@@ -159,79 +160,79 @@ const SignUp = () => {
         )}
         {otpSent && otpVerified && (
           <>
-          <div className="my-4">
-          <TextField
-            id="standard-basic"
-            name="userId"
-            autoComplete="userId"
-            value={registerInfo.userId}
-            label="Enter UserID"
-            variant="outlined"
-            size="small"
-            fullWidth
-            onChange={(e) => onInputUpdate(e)}
-          />
-          </div>
-             <div className="my-4">
-           <FormControl variant="outlined" size="small" fullWidth>
-             <InputLabel htmlFor="password-input">Enter Password</InputLabel>
-             <OutlinedInput
-               id="password-input"
-               name="password"
-               type={showPassword ? "text" : "password"}
-               value={registerInfo.password}
-               onChange={(e) => onInputUpdate(e)}
-               endAdornment={
-                 <InputAdornment position="end">
-                   <IconButton
-                     onClick={handleClickShowPassword}
-                     onMouseDown={(e) => e.preventDefault()}
-                     edge="end"
-                     aria-label={
-                       showPassword ? "Hide password" : "Show password"
-                     }
-                   >
-                     {showPassword ? <VisibilityOff /> : <Visibility />}
-                   </IconButton>
-                 </InputAdornment>
-               }
-               label="Enter Password"
-             />
-           </FormControl>
-         </div>
-         <div className="my-4">
-           <TextField
-             id="confirm-password"
-             name="confirmPassword"
-             autoComplete="confirm password"
-             value={registerInfo.confirmPassword}
-             label="Enter confirm password"
-             variant="outlined"
-             size="small"
-             fullWidth
-             onChange={(e) => onInputUpdate(e)}
-           />
-         </div>
- 
-         <div className="my-4 flex justify-center">
-           <LoadingButton
-             loading={isRegisterPending}
-             disabled={isRegisterPending || isResetDisabled}
-             onClick={registerAccount}
-             type="submit"
-             variant="contained"
-             sx={{ background: "var(--mingle-primary-color)", width: "100%" }}
-             startIcon={<AppRegistrationIcon />}
-           >
-             Register
-           </LoadingButton>
-         </div>
-       <div className="my-4">
-         <PasswordValidationList password={registerInfo.password} />
-       </div>
+            <div className="my-4">
+              <TextField
+                id="standard-basic"
+                name="userId"
+                autoComplete="userId"
+                value={registerInfo.userId}
+                label="Enter UserID"
+                variant="outlined"
+                size="small"
+                fullWidth
+                onChange={(e) => onInputUpdate(e)}
+              />
+            </div>
+            <div className="my-4">
+              <FormControl variant="outlined" size="small" fullWidth>
+                <InputLabel htmlFor="password-input">Enter Password</InputLabel>
+                <OutlinedInput
+                  id="password-input"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  value={registerInfo.password}
+                  onChange={(e) => onInputUpdate(e)}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={(e) => e.preventDefault()}
+                        edge="end"
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Enter Password"
+                />
+              </FormControl>
+            </div>
+            <div className="my-4">
+              <TextField
+                id="confirm-password"
+                name="confirmPassword"
+                autoComplete="confirm password"
+                value={registerInfo.confirmPassword}
+                label="Enter confirm password"
+                variant="outlined"
+                size="small"
+                fullWidth
+                onChange={(e) => onInputUpdate(e)}
+              />
+            </div>
+
+            <div className="my-4 flex justify-center">
+              <LoadingButton
+                loading={isRegisterPending}
+                disabled={isRegisterPending || isResetDisabled}
+                onClick={registerAccount}
+                type="submit"
+                variant="contained"
+                sx={{ background: "var(--mingle-primary-color)", width: "100%" }}
+                startIcon={<AppRegistrationIcon />}
+              >
+                Register
+              </LoadingButton>
+            </div>
+            <div className="my-4">
+              <PasswordValidationList password={registerInfo.password} />
+            </div>
           </>
         )}
-       </form>
+      </form>
     </AuthLayout>
   );
 };

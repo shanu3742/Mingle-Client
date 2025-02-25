@@ -1,5 +1,6 @@
 import axios from "axios";
 import  APP_CONFIG  from "@config/app.config";
+import { ServerErrorInterface } from "src/shared/interfaces/commonInterface";
 
 const authApi = axios.create({
   baseURL: `${APP_CONFIG.backend_uri}/chat/api/v1/user/`,
@@ -21,7 +22,7 @@ const onRegister = async ({ email, password ,userId,otp}:{email:string, password
     if(axios.isAxiosError(e)){
        errorMessage  = e?.response?.data?.message || e?.message ;
     }     
-    return Promise.reject({errorMessage,error:e});
+    return Promise.reject<ServerErrorInterface>({errorMessage,error:e});
   }
 };
 
@@ -38,7 +39,7 @@ const onLogin = async ({ email, password }:{email:string, password:string}) => {
     if(axios.isAxiosError(e)){
        errorMessage  = e?.response?.data?.message || e?.message ;
     }     
-    return Promise.reject({errorMessage,error:e});
+    return Promise.reject<ServerErrorInterface>({errorMessage,error:e});
   }
 };
 
@@ -56,7 +57,7 @@ const onGoogleLogin = async ({ googleToken }:{googleToken:string}) => {
     if(axios.isAxiosError(e)){
        errorMessage  = e?.response?.data?.message || e?.message ;
     }     
-    return Promise.reject({errorMessage,error:e});
+    return Promise.reject<ServerErrorInterface>({errorMessage,error:e});
   }
 };
 const onResetPassword = async ({ email, password, otp }:{email:string, password:string, otp:string}) => {
@@ -73,7 +74,7 @@ const onResetPassword = async ({ email, password, otp }:{email:string, password:
     if(axios.isAxiosError(e)){
        errorMessage  = e?.response?.data?.message || e?.message ;
     }     
-    return Promise.reject({errorMessage,error:e});
+    return Promise.reject<ServerErrorInterface>({errorMessage,error:e});
   }
 };
 const onAutoLogin = async () => {
@@ -86,7 +87,7 @@ const onAutoLogin = async () => {
     if(axios.isAxiosError(e)){
        errorMessage  = e?.response?.data?.message || e?.message ;
     }     
-    return Promise.reject({errorMessage,error:e});
+    return Promise.reject<ServerErrorInterface>({errorMessage,error:e});
   }
 };
 const onLogOut = async () => {
@@ -99,7 +100,7 @@ const onLogOut = async () => {
     if(axios.isAxiosError(e)){
        errorMessage  = e?.response?.data?.message || e?.message ;
     }     
-    return Promise.reject({errorMessage,error:e});
+    return Promise.reject<ServerErrorInterface>({errorMessage,error:e});
   }
 };
 // /auto-login

@@ -1,15 +1,16 @@
-import  { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./ForgetPassword.scss";
 import AuthLayout from "@layout/AuthLayout";
 import { Button, TextField } from "@mui/material";
 import OtpInput from "react-otp-input";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { ErrorToast ,SuccessToast} from "@utils/customToast";
+import { ErrorToast, SuccessToast } from "@utils/customToast";
 import { useNavigate } from "react-router-dom";
 import PasswordValidationList from "@component/PasswordValidationList";
 import { mingleValidate, onStrongPasswordValidated, passwordRules, validationConfig } from "@config/validation.config";
 import { onForgetPasswordOtpRequest, onForgetPasswordOtpVerify } from "@api/otp";
 import { onResetPassword } from "@api/auth";
+import { ServerErrorInterface } from "src/shared/interfaces/commonInterface";
 
 const ForgetPassword = () => {
   const [otpSent, setOtpSent] = useState(false);
@@ -28,17 +29,17 @@ const ForgetPassword = () => {
 
   const sendOtp = async () => {
     try {
-      const validation = mingleValidate({email},validationConfig.forgetPassword.rule,validationConfig.forgetPassword.message);
-      if(!validation.isValid){
+      const validation = mingleValidate({ email }, validationConfig.forgetPassword.rule, validationConfig.forgetPassword.message);
+      if (!validation.isValid) {
         ErrorToast(validation.errors);
         return
       }
       const otpMessage = await onForgetPasswordOtpRequest({ email });
       setOtpSent(true);
       SuccessToast(otpMessage.message);
-    } catch (e:any) {
+    } catch (e) {
       setOtpSent(false);
-      ErrorToast(e.errorMessage);
+      ErrorToast((e as ServerErrorInterface).errorMessage);
     }
   };
   const verifyOtp = useCallback(async () => {
@@ -46,29 +47,29 @@ const ForgetPassword = () => {
       const otpMessage = await onForgetPasswordOtpVerify({ email, otp });
       setOtpVerified(otpMessage.verified);
       SuccessToast(otpMessage.message);
-    } catch (e:any) {
+    } catch (e) {
       setOtpVerified(false);
-      ErrorToast(e.errorMessage);
+      ErrorToast((e as ServerErrorInterface).errorMessage);
     }
-  },[email,otp]);
+  }, [email, otp]);
 
   const handleResetPassword = async () => {
     try {
       const otpMessage = await onResetPassword({ email, password, otp });
       SuccessToast(otpMessage.message);
       navigate("/app/user/signin");
-    } catch (e:any) {
+    } catch (e: any) {
       const { errorMessage, error } = e;
       const loginAttemptRemaning = error.response.headers["ratelimit-remaining"];
       setLoginAttemptRemaning(loginAttemptRemaning);
       ErrorToast(errorMessage);
     }
   };
-  useEffect(() =>{
-    if(otp.length===4){
+  useEffect(() => {
+    if (otp.length === 4) {
       verifyOtp()
     }
-  },[otp,verifyOtp])
+  }, [otp, verifyOtp])
   return (
     <AuthLayout
       pageTitle="Forget Password"
@@ -76,8 +77,8 @@ const ForgetPassword = () => {
         !otpSent
           ? "Forget Password? Enter email for OTP"
           : otpSent && !otpVerified
-          ? "Enter OTP"
-          : "Enter Password and Confirm Password "
+            ? "Enter OTP"
+            : "Enter Password and Confirm Password "
       }
     >
       <form className="py-4 px-4 relative">
@@ -112,7 +113,7 @@ const ForgetPassword = () => {
               <OtpInput
                 value={otp}
                 onChange={(e) => {
-                  setOtp(e)      
+                  setOtp(e)
                 }}
                 numInputs={4}
                 renderSeparator={<span>-</span>}

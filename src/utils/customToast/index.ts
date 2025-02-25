@@ -21,8 +21,8 @@ const showToast = (message:string, type = 'success', options = {}) => {
     }
   };
   
-  const ErrorToast = (message:string, options?:any) => showToast(message, 'error', options);
-  const SuccessToast = (message:string, options?:any) => showToast(message, 'success', options);
+  const ErrorToast = (message:string, options?:ToastOptions) => showToast(message, 'error', options);
+  const SuccessToast = (message:string, options?:ToastOptions) => showToast(message, 'success', options);
 
   export {ErrorToast,SuccessToast }
   
