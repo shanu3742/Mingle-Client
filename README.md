@@ -26,7 +26,7 @@ Mingle is a modern dating app where users can swipe, match, and chat—all for f
    ```
 2. Navigate to the project folder:
    ```sh
-     cd mingle
+     cd Mingle-Client
    ```
 3. Install dependencies:
 
