@@ -1,50 +1,40 @@
-# React + TypeScript + Vite
+# Mingle - A Free Dating App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Mingle is a modern dating app where users can swipe, match, and chat—all for free!
 
-Currently, two official plugins are available:
+> 🚧 **Note:** This app is still in development. New features and improvements are coming soon!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- Swipe to like or pass on profiles
+- Instant chat when both users match
+- Create and manage your profile
+- No subscriptions, 100% free
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🛠️ Tech Stack
 
-- Configure the top-level `parserOptions` property like this:
+- **Frontend:** React (TypeScript, Vite)
+- **State & Data Fetching:** React Query with Axios
+- **Routing:** React Router
+- **UI & Styling:** Tailwind CSS, Material UI
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📦 Installation
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/mingle.git
+   ```
+2. Navigate to the project folder:
+   ```sh
+     cd mingle
+   ```
+3. Install dependencies:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+   ```sh
+     npm install
+   ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+4. Start the development server:
+   ```
+     npm run dev
+   ```

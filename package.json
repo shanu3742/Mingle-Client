@@ -1,5 +1,6 @@
 {
-  "name": "chatapp",
+  "name": "mingle",
+  "author": "Megabyte Infoedge Private Limited",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -49,5 +50,6 @@
     "typescript-eslint": "^8.22.0",
     "vite": "^6.1.0",
     "vite-tsconfig-paths": "^5.1.4"
-  }
+  },
+  "description": "Mingle is a free dating app where you can swipe on people you like. If they swipe back, you can start chatting instantly. Create and manage your profile easily—no subscriptions, just pure connections!"
 }
