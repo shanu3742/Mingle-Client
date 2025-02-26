@@ -6,7 +6,7 @@ import OtpInput from "react-otp-input";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { ErrorToast, SuccessToast } from "@utils/customToast";
 import { useNavigate } from "react-router-dom";
-import PasswordValidationList from "@component/PasswordValidationList";
+import PasswordValidationList from "@components/PasswordValidationList";
 import { mingleValidate, onStrongPasswordValidated, passwordRules, validationConfig } from "@config/validation.config";
 import { onForgetPasswordOtpRequest, onForgetPasswordOtpVerify } from "@api/otp";
 import { onResetPassword } from "@api/auth";

@@ -15,7 +15,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import LoadingButton from "@mui/lab/LoadingButton";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import PasswordValidationList from "@component/PasswordValidationList";
+import PasswordValidationList from "@components/PasswordValidationList";
 import OTPInput from "react-otp-input";
 import { mingleValidate, onStrongPasswordValidated, passwordRules, validationConfig } from "@config/validation.config";
 import { ErrorToast, SuccessToast } from "@utils/customToast";

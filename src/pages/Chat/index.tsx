@@ -1,16 +1,16 @@
-import Message from '@page/Message'
+import Message from '@pages/Message'
 import { AuthInterface, useAuth } from '@context/authContext'
 
 
 const Chat = () => {
   // console.log(userData)
-  const {logout} = useAuth() as AuthInterface
+  const { logout } = useAuth() as AuthInterface
   return (
     <>
-    <Message />
-    <button onClick={() =>logout()}>logout</button>
+      <Message />
+      <button onClick={() => logout()}>logout</button>
     </>
- 
+
   )
 }
 

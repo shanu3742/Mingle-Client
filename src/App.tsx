@@ -13,25 +13,22 @@ import PageSliderLayout from '@layout/PageSliderLayout';
 import { AuthProvider } from '@context/authContext';
 
 
-
-
 function App() {
   const queryClient = new QueryClient();
-  
- 
+
+
   return (
     <QueryClientProvider client={queryClient}>
-        <div className="App">
-          <ToastContainer />
-          <AuthProvider>
+      <div className="App">
+        <ToastContainer />
+        <AuthProvider>
           <PageSliderLayout>
-            
-              <ChatRoutes  />
-          
+            <ChatRoutes />
           </PageSliderLayout>
-          </AuthProvider>
-        </div>
-        <ReactQueryDevtools initialIsOpen={false} />
+        </AuthProvider>
+      </div>
+
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

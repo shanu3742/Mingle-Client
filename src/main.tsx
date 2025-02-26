@@ -7,7 +7,6 @@ import { BrowserRouter } from 'react-router-dom';
 //import scss
 import './index.scss';
 //app file import
-import ResizeProvider  from '@context/resizeContext';
 import FireBaseProvider from '@context/firebaseContext';
 
 
@@ -15,9 +14,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <FireBaseProvider>
       <BrowserRouter>
-        <ResizeProvider>
-              <App />
-        </ResizeProvider>
+
+        <App />
+
       </BrowserRouter>
     </FireBaseProvider>
   </StrictMode>,

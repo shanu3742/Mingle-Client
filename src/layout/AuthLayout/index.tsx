@@ -1,5 +1,5 @@
 //react import
-import  { memo, ReactNode } from "react";
+import { memo, ReactNode } from "react";
 //react router import
 import { NavLink, useLocation } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
@@ -9,29 +9,30 @@ import GoogleIcon from "@mui/icons-material/Google";
 //file scss
 import "./AuthLayout.scss";
 //app file import
-import { ResizeContextInterface, useResizeContext } from "../../context/resizeContext";
 import LoginSvg from "../../Assets/auth.svg";
 import { FirebaseContextType, useFirebaseContext } from "../../context/firebaseContext";
-import { ErrorToast} from "@utils/customToast";
+import { ErrorToast } from "@utils/customToast";
 import { AuthInterface, useAuth } from "@context/authContext";
-import BackButton from "@component/BackButton";
+import BackButton from "@components/BackButton";
+import useResize from "@hooks/useResize";
 
 const AuthLayout = ({
   pageTitle = "title of Page",
   pageDescription = "page Description",
   descriptionClassName = "font-x-small",
   children,
-}:{ pageTitle:string
-    pageDescription:string
-    descriptionClassName?:string
-    children:ReactNode
+}: {
+  pageTitle: string
+  pageDescription: string
+  descriptionClassName?: string
+  children: ReactNode
 }) => {
   const routeDetails = useLocation();
   const isForgetPassword = routeDetails.pathname.includes("forgetpassword");
 
   console.log("routeDetails", routeDetails);
   //context and third party hooks
-  const deviceDimension = useResizeContext() as ResizeContextInterface;
+  const deviceDimension = useResize();
   const { auth, fbProvider } = useFirebaseContext() as FirebaseContextType;
   const { googleLogin, loginAttempt } = useAuth() as AuthInterface;
 
@@ -44,7 +45,7 @@ const AuthLayout = ({
       googleLogin({
         googleToken: googleToken,
       });
-    } catch (err:any) {
+    } catch (err: any) {
       ErrorToast(err);
     }
   };
@@ -57,9 +58,8 @@ const AuthLayout = ({
         </div>
       )}
       <div
-        className={`bg-slate-100 ${
-          deviceDimension.deviceType >= 2 ? "col-span-6" : "col-span-12"
-        } pt-10 px-4 relative`}
+        className={`bg-slate-100 ${deviceDimension.deviceType >= 2 ? "col-span-6" : "col-span-12"
+          } pt-10 px-4 relative`}
       >
         <div className="absolute left-1 top-1">
           <BackButton />
