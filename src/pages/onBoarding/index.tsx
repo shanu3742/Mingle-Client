@@ -1,11 +1,16 @@
-import { AuthInterface, useAuth } from "@context/authContext"
+import useResize from "@hooks/useResize"
+import MobileView from "./MobileView"
+import DesktopView from "./DesktopView"
+
 
 const OnBoarding = () => {
-    const {logout} = useAuth() as AuthInterface
+
+  const deviceDimension = useResize();
+
   return (
     <>
-    <div>shanu onbarding</div>
-    <button onClick={() =>logout()}>logout</button>
+      {deviceDimension.deviceType === 1 && <MobileView />}
+      {deviceDimension.deviceType >= 2 && <DesktopView />}
     </>
   )
 }
