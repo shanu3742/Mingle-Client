@@ -1,34 +1,34 @@
-import { Box, Drawer, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
+import { TextField, Typography } from "@mui/material";
+import { useCallback, useState } from "react";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import OptionSelector from "@components/OptionSelector";
 
 const DesktopView = () => {
-    const [open, setOpen] = useState(false);
     const [gender, setGender] = useState<string | null>(null);
 
-    const otherGenders = [
+    const genderOption = [
+        'Male', 'Female',
         "Transgender", "Non-binary", "Genderqueer", "Agender", "Bigender",
         "Two-Spirit", "Demiboy", "Demigirl", "Genderfluid", "Androgynous",
         "Neutrois", "Intersex", "Pangender", "Maverique", "Polygender",
         "Xenogender", "Omnigender", "Third Gender", "Fa’afafine"
     ];
-    const straightGender = ['Male', 'Female']
 
-    const toggleDrawer = (newOpen: boolean) => () => {
-        setOpen(newOpen);
-    };
-    const handleGender = (genderType: string) => {
+    const onGenderSelection = useCallback((genderType: string) => {
         setGender(genderType)
-    }
+    }, [])
+
     return (
         <>
-            <div className="flex flex-col items-center min-h-screen bg-gray-100">
+            <div className="flex flex-col items-center min-h-screen bg-gray-100 px-4">
 
                 <h1 className="text-center font-bold my-4">
                     Profile Details
                 </h1>
 
-                <div className="w-3/4" >
+                <div className="w-5/6">
                     <div className="grid grid-cols-12 gap-4 ">
                         <div className="col-span-6">
                             <div className='my-4'>
@@ -40,35 +40,33 @@ const DesktopView = () => {
                             </div>
 
                             <div className='my-4'>
+                                <Typography sx={{ color: "text.secondary", mb: 1 }}>{'Birthday'}</Typography>
                                 <div className="flex gap-2">
-                                    <TextField name="DD" label="DD" variant="outlined" className="w-1/3" size="small" fullWidth />
-                                    <TextField name="MM" label="MM" variant="outlined" className="w-1/3" size="small" fullWidth />
-                                    <TextField name="YYYY" label="YYYY" variant="outlined" className="w-1/3" size="small" fullWidth />
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DatePicker slotProps={{
+                                            textField: {
+                                                sx: {
+                                                    "& .MuiInputBase-root": {
+                                                        padding: "4px", // Adjust padding
+                                                        minHeight: "30px", // Reduce height
+                                                    },
+                                                    "& .MuiOutlinedInput-root": {
+                                                        padding: "4px", // For outlined variant
+                                                        paddingRight: "10px"
+                                                    },
+                                                    "& .MuiInputBase-input": {
+                                                        padding: "2px", // Inner input padding
+                                                    },
+                                                },
+                                            },
+                                        }} />
+                                    </LocalizationProvider>
                                 </div>
                             </div>
-
-                            <div>
-                                <div>
-                                    {
-                                        straightGender.map((strGender, strGenderIndex) => {
-                                            return <button key={strGender + strGenderIndex} type="button" onClick={() => handleGender(strGender)} className={`py-2.5 px-5 me-2 mb-2 text-sm bg-white rounded-lg border border-gray-200 hover:text-gray-400 hover:bg-gray-100 hover:border-gray-950 ${gender === strGender ? "active" : "inactive"}`}>{strGender}</button>
-                                        })
-                                    }
-                                    <button onClick={toggleDrawer(true)} type="button" className={`py-2.5 px-5 me-2 mb-2 text-sm bg-white rounded-lg border border-gray-200 hover:text-gray-400 hover:bg-gray-100 hover:border-gray-950 ${gender && !straightGender.includes(gender) ? "active" : "inactive"}`}>{gender && !straightGender.includes(gender) ? gender : 'More'} <PanToolAltIcon /></button>
-                                </div>
-
-                                <Drawer anchor={'bottom'} open={open} onClose={toggleDrawer(false)}>
-                                    <Box sx={{ minHeight: 350 }} role="presentation" onClick={toggleDrawer(false)}>
-                                        <Typography sx={{ p: 2, color: 'text.secondary' }}>Select Gender</Typography>
-
-                                        {
-                                            otherGenders.map((othGender, genderIndex) => {
-                                                return <button key={othGender + genderIndex} onClick={() => handleGender(othGender)} type="button" className={`py-5 px-15 me-2 mb-2 text-sm bg-white rounded-lg border border-gray-200 hover:text-gray-400 hover:bg-gray-100 hover:border-gray-950 ${othGender === gender ? "active" : "inactive"}`}>{othGender}</button>
-                                            })
-                                        }
-                                    </Box>
-                                </Drawer>
+                            <div className='my-4'>
+                                <OptionSelector options={genderOption} label="Select Gender" visibleCount={2} selectedOption={gender} onSelect={onGenderSelection} />
                             </div>
+
                         </div>
 
 
