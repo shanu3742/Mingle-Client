@@ -1,7 +1,7 @@
 import useResize from "@hooks/useResize"
 import MobileView from "./MobileView"
 import DesktopView from "./DesktopView"
-
+import './onBoarding.scss'
 
 const OnBoarding = () => {
 
