@@ -85,11 +85,13 @@ const OptionSelector = ({
                             type="button"
                             className={`py-2 px-10 me-2 mb-2 text-sm bg-white rounded-lg border border-gray-200 hover:text-gray-400 hover:bg-gray-100 hover:border-gray-950 ${(typeof option === 'string' ? option : option.value) === selected ? "select-active" : ""}`}>
                             {
-                                isObject && <>
-                                    <span className="text-2xl">{(option as OptionInterface).icon}</span>
+                                isObject && (option as OptionInterface).icon && (
+                                    <>
+                                        <span className="text-2xl">{(option as OptionInterface).icon}</span>
 
-                                    <br />
-                                </>
+                                        <br />
+                                    </>
+                                )
                             }
                             <span>{(typeof option === 'string' ? option : option.value)}</span>
                         </button>

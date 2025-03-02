@@ -9,6 +9,13 @@ const DesktopView = () => {
     const [gender, setGender] = useState<string | null>(null);
     const [genderInterested, setGenderInterested] = useState<string | null>(null);
     const [lookingFort, setLookingFort] = useState<string | null>(null);
+    const [selectedDrinkOption, setSelectedDrinkOption] = useState<string | null>(null)
+    const [selectedSmokeOption, setSelectedSmokeOption] = useState<string | null>(null)
+    const [selectedWorkoutOption, setSelectedWorkoutOption] = useState<string | null>(null)
+    const [selectedpetOption, setSelectedPetOption] = useState<string | null>(null)
+
+
+
     const genderList = ['Men', 'Women', 'Gay', "Lesbian", "Demisexual"]
 
     const genderOption = [
@@ -45,6 +52,93 @@ const DesktopView = () => {
             icon: "🤔"
         }
     ];
+    const drinkOption = [
+        'Not for me',
+        'Sober',
+        'Sober curious',
+        'On special occasions',
+        'Socially on weekends',
+        'Most Nights'
+    ]
+    const smokeOption = [
+        'Non-smoker',
+        'Smoker',
+        'Social smoker',
+        'Smoker when drinking',
+        'Trying to quit',
+        'Most Nights'
+    ]
+    const workoutOption = [
+        'Everyday',
+        'Often',
+        'Sometimes',
+        'Never'
+    ]
+
+    const petOption = [
+        {
+            value: "Dog",
+            icon: "🐶"
+        },
+        {
+            value: "Cat",
+            icon: "🐈‍"
+        },
+        {
+            value: "Reptile",
+            icon: "🦎"
+        },
+        {
+            value: "Amphibian",
+            icon: "🐸"
+        },
+        {
+            value: "Bird",
+            icon: "🐥"
+        },
+        {
+            value: "Fish",
+            icon: "🐟"
+        },
+        {
+            value: "Don't have but love",
+            icon: "🚫"
+        },
+        {
+            value: "Turtle",
+            icon: "🐢"
+        },
+        {
+            value: "Hamster",
+            icon: "🐹"
+        },
+        {
+            value: "Rabbit",
+            icon: "🐇"
+        },
+        {
+            value: "Pet-free",
+            icon: ""
+        },
+        {
+            value: "other",
+            icon: ""
+        },
+        {
+            value: "All the pets",
+            icon: ""
+        },
+        {
+            value: "Want a pet",
+            icon: ""
+        },
+        {
+            value: "Allergic to pets",
+            icon: ""
+        },
+
+    ]
+
     const onGenderSelection = useCallback((genderType: string) => {
         setGender(genderType)
     }, [])
@@ -53,6 +147,21 @@ const DesktopView = () => {
     }, [])
     const onLookingFor = useCallback((genderType: string) => {
         setLookingFort(genderType)
+    }, [])
+    const onSelectedDrinkOption = useCallback((genderType: string) => {
+        setSelectedDrinkOption(genderType)
+    }, [])
+
+    const onSelectedSmokeOption = useCallback((genderType: string) => {
+        setSelectedSmokeOption(genderType)
+    }, [])
+
+    const onSelectedWorkoutOption = useCallback((genderType: string) => {
+        setSelectedWorkoutOption(genderType)
+    }, [])
+
+    const onSelectedPetOption = useCallback((genderType: string) => {
+        setSelectedPetOption(genderType)
     }, [])
     return (
         <>
@@ -137,11 +246,27 @@ const DesktopView = () => {
                     </div>
                     <div>
                         <div className='mb-4'>
-                            <OptionSelector options={genderList} label="Interested in" visibleCount={2} selectedOption={genderInterested} onSelect={onGenderInterested} />
+                            <OptionSelector options={genderList} label="👥 Interested in" visibleCount={2} selectedOption={genderInterested} onSelect={onGenderInterested} />
                         </div>
                         <div className='mb-4'>
-                            <OptionSelector options={lookingFor} label="What are you looking for?" visibleCount={2} selectedOption={lookingFort} onSelect={onLookingFor} />
+                            <OptionSelector options={lookingFor} label="👁️ What are you looking for?" visibleCount={2} selectedOption={lookingFort} onSelect={onLookingFor} />
                         </div>
+                        <div className='mb-4'>
+                            <OptionSelector options={drinkOption} label="🍺 How often do you drink" visibleCount={2} selectedOption={selectedDrinkOption} onSelect={onSelectedDrinkOption} />
+                        </div>
+
+                        <div className='mb-4'>
+                            <OptionSelector options={smokeOption} label="🚬 How often do you smoke" visibleCount={2} selectedOption={selectedSmokeOption} onSelect={onSelectedSmokeOption} />
+                        </div>
+
+                        <div className='mb-4'>
+                            <OptionSelector options={workoutOption} label="💪 Do you workout?" visibleCount={1} selectedOption={selectedWorkoutOption} onSelect={onSelectedWorkoutOption} />
+                        </div>
+
+                        <div className='mb-4'>
+                            <OptionSelector options={petOption} label="🐈 Do you have any pets?" visibleCount={2} selectedOption={selectedpetOption} onSelect={onSelectedPetOption} />
+                        </div>
+
                     </div>
                 </div>
             </div>
