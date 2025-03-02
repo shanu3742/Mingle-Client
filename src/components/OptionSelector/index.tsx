@@ -1,10 +1,13 @@
 import { Box, Drawer, Typography } from "@mui/material";
-import { useCallback, useMemo, useState } from "react";
+import { ReactNode, useCallback, useMemo, useState } from "react";
 import './OptionSelector.scss'
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
-
+interface OptionInterface {
+    value: string,
+    icon: string | ReactNode
+}
 interface OptionSelectorProps {
-    options: string[]; // List of all options
+    options: Array<string | OptionInterface>; // List of all options
     label: string;
     visibleCount?: number; // How many options to show before "More" button
     selectedOption?: string | null; // Currently selected option
@@ -37,10 +40,11 @@ const OptionSelector = ({
 
 
     // Memoize visible & hidden options to avoid recalculating on every render
-    const { visibleOptions, hiddenOptions } = useMemo(() => {
+    const { visibleOptions, hiddenOptions, isObject } = useMemo(() => {
         return {
             visibleOptions: options.slice(0, visibleCount),
             hiddenOptions: options.slice(visibleCount),
+            isObject: typeof options[0] === 'object'
         };
     }, [options, visibleCount]);
 
@@ -50,12 +54,12 @@ const OptionSelector = ({
             <div>
                 {visibleOptions.map((option, index) => (
                     <button
-                        key={option + index}
+                        key={(typeof option === 'string' ? option : option.value) + index}
                         type="button"
-                        onClick={() => handleSelect(option)}
-                        className={`py-2 px-10 me-2 mb-2 text-sm bg-white rounded-lg border border-gray-200 hover:text-gray-400 hover:bg-gray-100 hover:border-gray-950 ${option === selected ? "select-active" : ""}`}
+                        onClick={() => handleSelect((typeof option === 'string' ? option : option.value))}
+                        className={`py-2 px-10 me-2 mb-2 text-sm bg-white rounded-lg border border-gray-200 hover:text-gray-400 hover:bg-gray-100 hover:border-gray-950 ${(typeof option === 'string' ? option : option.value) === selected ? "select-active" : ""}`}
                     >
-                        {option}
+                        <span>{(typeof option === 'string' ? option : option.value)}</span>
                     </button>
                 ))}
 
@@ -63,9 +67,9 @@ const OptionSelector = ({
                     <button
                         onClick={() => toggleDrawer(true)}
                         type="button"
-                        className={`py-2 px-10 me-2 mb-2 text-sm bg-white rounded-lg border border-gray-200 hover:text-gray-400 hover:bg-gray-100 hover:border-gray-950 ${hiddenOptions.includes(selected ?? "") ? "select-active" : ""}`}
+                        className={`py-2 px-10 me-2 mb-2 text-sm bg-white rounded-lg border border-gray-200 hover:text-gray-400 hover:bg-gray-100 hover:border-gray-950 ${(isObject ? hiddenOptions.map((el) => (el as OptionInterface).value) : hiddenOptions).includes(selected ?? "") ? "select-active" : ""}`}
                     >
-                        {hiddenOptions.includes(selected ?? "") ? selected : "More"} <PanToolAltIcon sx={{ fontSize: 10 }} />
+                        {(isObject ? hiddenOptions.map((el) => (el as OptionInterface).value) : hiddenOptions).includes(selected ?? "") ? selected : "More"} <PanToolAltIcon sx={{ fontSize: 10 }} />
                     </button>
                 )}
             </div>
@@ -76,11 +80,18 @@ const OptionSelector = ({
 
                     {hiddenOptions.map((option, index) => (
                         <button
-                            key={option + index}
-                            onClick={() => handleSelect(option)}
+                            key={(typeof option === 'string' ? option : option.value) + index}
+                            onClick={() => handleSelect((typeof option === 'string' ? option : option.value))}
                             type="button"
-                            className={`py-2 px-10 me-2 mb-2 text-sm bg-white rounded-lg border border-gray-200 hover:text-gray-400 hover:bg-gray-100 hover:border-gray-950 ${option === selected ? "select-active" : ""}`}>
-                            {option}
+                            className={`py-2 px-10 me-2 mb-2 text-sm bg-white rounded-lg border border-gray-200 hover:text-gray-400 hover:bg-gray-100 hover:border-gray-950 ${(typeof option === 'string' ? option : option.value) === selected ? "select-active" : ""}`}>
+                            {
+                                isObject && <>
+                                    <span className="text-2xl">{(option as OptionInterface).icon}</span>
+
+                                    <br />
+                                </>
+                            }
+                            <span>{(typeof option === 'string' ? option : option.value)}</span>
                         </button>
                     ))}
                 </Box>

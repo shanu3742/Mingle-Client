@@ -7,6 +7,9 @@ import OptionSelector from "@components/OptionSelector";
 
 const DesktopView = () => {
     const [gender, setGender] = useState<string | null>(null);
+    const [genderInterested, setGenderInterested] = useState<string | null>(null);
+    const [lookingFort, setLookingFort] = useState<string | null>(null);
+    const genderList = ['Men', 'Women', 'Gay', "Lesbian", "Demisexual"]
 
     const genderOption = [
         'Male', 'Female',
@@ -16,10 +19,41 @@ const DesktopView = () => {
         "Xenogender", "Omnigender", "Third Gender", "Fa’afafine"
     ];
 
+    const lookingFor = [
+        {
+            value: "Long-term partner",
+            icon: "❤️"
+        },
+        {
+            value: "Long-term open to short",
+            icon: "😍"
+        },
+        {
+            value: "Short-term open to Long",
+            icon: "🥂"
+        },
+        {
+            value: "Short-term fun",
+            icon: "🎉"
+        },
+        {
+            value: "New friends",
+            icon: "👋"
+        },
+        {
+            value: "Still Figuring it out",
+            icon: "🤔"
+        }
+    ];
     const onGenderSelection = useCallback((genderType: string) => {
         setGender(genderType)
     }, [])
-
+    const onGenderInterested = useCallback((genderType: string) => {
+        setGenderInterested(genderType)
+    }, [])
+    const onLookingFor = useCallback((genderType: string) => {
+        setLookingFort(genderType)
+    }, [])
     return (
         <>
             <div className="flex flex-col items-center min-h-screen bg-gray-100 px-4">
@@ -31,15 +65,22 @@ const DesktopView = () => {
                 <div className="w-5/6">
                     <div className="grid grid-cols-12 gap-4 ">
                         <div className="col-span-6">
-                            <div className='my-4'>
-                                <TextField name="name" label="Enter Name" variant="outlined" size="small" fullWidth />
+                            <div className='mb-4'>
+                                <label htmlFor="name">
+                                    <Typography sx={{ color: "text.secondary", mb: 1 }}> First name</Typography>
+                                </label>
+                                <TextField id="name" name="name" placeholder="First name" variant="outlined" size="small" fullWidth />
                             </div>
 
-                            <div className='my-4'>
-                                <TextField name="name" label="Email" variant="outlined" value="krksingh.99@gmail.com" size="small" fullWidth disabled />
+                            <div className='mb-4'>
+                                <label htmlFor="email" className="mb-1">
+                                    <Typography sx={{ color: "text.secondary", mb: 1 }}>Email</Typography>
+
+                                </label>
+                                <TextField id="email" name="email" variant="outlined" value="krksingh.99@gmail.com" size="small" fullWidth disabled />
                             </div>
 
-                            <div className='my-4'>
+                            <div className='mb-4'>
                                 <Typography sx={{ color: "text.secondary", mb: 1 }}>{'Birthday'}</Typography>
                                 <div className="flex gap-2">
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -63,7 +104,7 @@ const DesktopView = () => {
                                     </LocalizationProvider>
                                 </div>
                             </div>
-                            <div className='my-4'>
+                            <div className='mb-4'>
                                 <OptionSelector options={genderOption} label="Select Gender" visibleCount={2} selectedOption={gender} onSelect={onGenderSelection} />
                             </div>
 
@@ -94,7 +135,14 @@ const DesktopView = () => {
                             </div>
                         </div>
                     </div>
-
+                    <div>
+                        <div className='mb-4'>
+                            <OptionSelector options={genderList} label="Interested in" visibleCount={2} selectedOption={genderInterested} onSelect={onGenderInterested} />
+                        </div>
+                        <div className='mb-4'>
+                            <OptionSelector options={lookingFor} label="What are you looking for?" visibleCount={2} selectedOption={lookingFort} onSelect={onLookingFor} />
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
