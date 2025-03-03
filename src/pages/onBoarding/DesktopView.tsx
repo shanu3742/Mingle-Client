@@ -6,166 +6,177 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import OptionSelector from "@components/OptionSelector";
 
 const DesktopView = () => {
-    const [gender, setGender] = useState<string | null>(null);
-    const [genderInterested, setGenderInterested] = useState<string | null>(null);
-    const [lookingFort, setLookingFort] = useState<string | null>(null);
-    const [selectedDrinkOption, setSelectedDrinkOption] = useState<string | null>(null)
-    const [selectedSmokeOption, setSelectedSmokeOption] = useState<string | null>(null)
-    const [selectedWorkoutOption, setSelectedWorkoutOption] = useState<string | null>(null)
-    const [selectedpetOption, setSelectedPetOption] = useState<string | null>(null)
 
+    const [selectOption, setSelectOption] = useState<any>({
+        gender: {
+            list: ['Male', 'Female',
+                "Transgender", "Non-binary", "Genderqueer", "Agender", "Bigender",
+                "Two-Spirit", "Demiboy", "Demigirl", "Genderfluid", "Androgynous",
+                "Neutrois", "Intersex", "Pangender", "Maverique", "Polygender",
+                "Xenogender", "Omnigender", "Third Gender", "Fa’afafine"],
+            selectedValue: '',
+            label: 'Select Gender',
+            visibleCount: 2
+        },
+        interestedIn: {
+            list: ['Men', 'Women', 'Gay', "Lesbian", "Demisexual"],
+            selectedValue: '',
+            label: '👥 Interested in',
+            visibleCount: 2
+        },
+        lookingFor: {
+            list: [
+                {
+                    value: "Long-term partner",
+                    icon: "❤️"
+                },
+                {
+                    value: "Long-term open to short",
+                    icon: "😍"
+                },
+                {
+                    value: "Short-term open to Long",
+                    icon: "🥂"
+                },
+                {
+                    value: "Short-term fun",
+                    icon: "🎉"
+                },
+                {
+                    value: "New friends",
+                    icon: "👋"
+                },
+                {
+                    value: "Still Figuring it out",
+                    icon: "🤔"
+                }
+            ],
+            selectedValue: '',
+            label: "👁️ What are you looking for?",
+            visibleCount: 2
+        },
+        drinkOption: {
+            list: [
+                'Not for me',
+                'Sober',
+                'Sober curious',
+                'On special occasions',
+                'Socially on weekends',
+                'Most Nights'
+            ],
+            selectedValue: '',
+            label: '🍺 How often do you drink',
+            visibleCount: 2
+        },
+        smokeOption: {
+            list: [
+                'Non-smoker',
+                'Smoker',
+                'Social smoker',
+                'Smoker when drinking',
+                'Trying to quit',
+                'Most Nights'
+            ],
+            selectedValue: '',
+            label: '🚬 How often do you smoke',
+            visibleCount: 2
+        },
+        workoutOption: {
+            list: ['Everyday',
+                'Often',
+                'Sometimes',
+                'Never'],
+            selectedValue: '',
+            label: '💪 Do you workout?',
+            visibleCount: 1
+        },
+        petOption: {
+            list: [
+                {
+                    value: "Dog",
+                    icon: "🐶"
+                },
+                {
+                    value: "Cat",
+                    icon: "🐈‍"
+                },
+                {
+                    value: "Reptile",
+                    icon: "🦎"
+                },
+                {
+                    value: "Amphibian",
+                    icon: "🐸"
+                },
+                {
+                    value: "Bird",
+                    icon: "🐥"
+                },
+                {
+                    value: "Fish",
+                    icon: "🐟"
+                },
+                {
+                    value: "Don't have but love",
+                    icon: "🚫"
+                },
+                {
+                    value: "Turtle",
+                    icon: "🐢"
+                },
+                {
+                    value: "Hamster",
+                    icon: "🐹"
+                },
+                {
+                    value: "Rabbit",
+                    icon: "🐇"
+                },
+                {
+                    value: "Pet-free",
+                    icon: ""
+                },
+                {
+                    value: "other",
+                    icon: ""
+                },
+                {
+                    value: "All the pets",
+                    icon: ""
+                },
+                {
+                    value: "Want a pet",
+                    icon: ""
+                },
+                {
+                    value: "Allergic to pets",
+                    icon: ""
+                },
 
-
-    const genderList = ['Men', 'Women', 'Gay', "Lesbian", "Demisexual"]
-
-    const genderOption = [
-        'Male', 'Female',
-        "Transgender", "Non-binary", "Genderqueer", "Agender", "Bigender",
-        "Two-Spirit", "Demiboy", "Demigirl", "Genderfluid", "Androgynous",
-        "Neutrois", "Intersex", "Pangender", "Maverique", "Polygender",
-        "Xenogender", "Omnigender", "Third Gender", "Fa’afafine"
-    ];
-
-    const lookingFor = [
-        {
-            value: "Long-term partner",
-            icon: "❤️"
-        },
-        {
-            value: "Long-term open to short",
-            icon: "😍"
-        },
-        {
-            value: "Short-term open to Long",
-            icon: "🥂"
-        },
-        {
-            value: "Short-term fun",
-            icon: "🎉"
-        },
-        {
-            value: "New friends",
-            icon: "👋"
-        },
-        {
-            value: "Still Figuring it out",
-            icon: "🤔"
+            ],
+            selectedValue: '',
+            label: '🐈 Do you have any pets?',
+            visibleCount: 2
         }
-    ];
-    const drinkOption = [
-        'Not for me',
-        'Sober',
-        'Sober curious',
-        'On special occasions',
-        'Socially on weekends',
-        'Most Nights'
-    ]
-    const smokeOption = [
-        'Non-smoker',
-        'Smoker',
-        'Social smoker',
-        'Smoker when drinking',
-        'Trying to quit',
-        'Most Nights'
-    ]
-    const workoutOption = [
-        'Everyday',
-        'Often',
-        'Sometimes',
-        'Never'
-    ]
+    })
 
-    const petOption = [
-        {
-            value: "Dog",
-            icon: "🐶"
-        },
-        {
-            value: "Cat",
-            icon: "🐈‍"
-        },
-        {
-            value: "Reptile",
-            icon: "🦎"
-        },
-        {
-            value: "Amphibian",
-            icon: "🐸"
-        },
-        {
-            value: "Bird",
-            icon: "🐥"
-        },
-        {
-            value: "Fish",
-            icon: "🐟"
-        },
-        {
-            value: "Don't have but love",
-            icon: "🚫"
-        },
-        {
-            value: "Turtle",
-            icon: "🐢"
-        },
-        {
-            value: "Hamster",
-            icon: "🐹"
-        },
-        {
-            value: "Rabbit",
-            icon: "🐇"
-        },
-        {
-            value: "Pet-free",
-            icon: ""
-        },
-        {
-            value: "other",
-            icon: ""
-        },
-        {
-            value: "All the pets",
-            icon: ""
-        },
-        {
-            value: "Want a pet",
-            icon: ""
-        },
-        {
-            value: "Allergic to pets",
-            icon: ""
-        },
 
-    ]
     const imageListInit = Array.from({ length: 6 }).fill({ imageuri: '', file: '' })
     const [imageList, setImageList] = useState(imageListInit)
 
 
-    const onGenderSelection = useCallback((genderType: string) => {
-        setGender(genderType)
-    }, [])
-    const onGenderInterested = useCallback((genderType: string) => {
-        setGenderInterested(genderType)
-    }, [])
-    const onLookingFor = useCallback((genderType: string) => {
-        setLookingFort(genderType)
-    }, [])
-    const onSelectedDrinkOption = useCallback((genderType: string) => {
-        setSelectedDrinkOption(genderType)
-    }, [])
-
-    const onSelectedSmokeOption = useCallback((genderType: string) => {
-        setSelectedSmokeOption(genderType)
+    const onSelection = useCallback((value: string, keyToUpdate: any) => {
+        setSelectOption((prev: any) => {
+            return {
+                ...prev,
+                [keyToUpdate]: {
+                    ...prev[keyToUpdate],
+                    selectedValue: value
+                }
+            }
+        });
     }, [])
 
-    const onSelectedWorkoutOption = useCallback((genderType: string) => {
-        setSelectedWorkoutOption(genderType)
-    }, [])
-
-    const onSelectedPetOption = useCallback((genderType: string) => {
-        setSelectedPetOption(genderType)
-    }, []);
 
     const handleImageUpload = (event: any, index: any) => {
         console.log('index', index)
@@ -181,7 +192,8 @@ const DesktopView = () => {
             setImageList(newImageList)
         }
     }
-    console.log('imageList', imageList)
+
+    console.log('imageList', selectOption)
     return (
         <>
             <div className="flex flex-col items-center min-h-screen bg-gray-100 px-4">
@@ -233,7 +245,7 @@ const DesktopView = () => {
                                 </div>
                             </div>
                             <div className='mb-4'>
-                                <OptionSelector options={genderOption} label="Select Gender" visibleCount={2} selectedOption={gender} onSelect={onGenderSelection} />
+                                <OptionSelector options={selectOption.gender.list} label={selectOption.gender.label} visibleCount={selectOption.gender.visibleCount} selectedOption={selectOption.gender.selectedValue} onSelect={(value) => onSelection(value, 'gender')} />
                             </div>
 
                         </div>
@@ -267,28 +279,13 @@ const DesktopView = () => {
                         </div>
                     </div>
                     <div>
-                        <div className='mb-4'>
-                            <OptionSelector options={genderList} label="👥 Interested in" visibleCount={2} selectedOption={genderInterested} onSelect={onGenderInterested} />
-                        </div>
-                        <div className='mb-4'>
-                            <OptionSelector options={lookingFor} label="👁️ What are you looking for?" visibleCount={2} selectedOption={lookingFort} onSelect={onLookingFor} />
-                        </div>
-                        <div className='mb-4'>
-                            <OptionSelector options={drinkOption} label="🍺 How often do you drink" visibleCount={2} selectedOption={selectedDrinkOption} onSelect={onSelectedDrinkOption} />
-                        </div>
-
-                        <div className='mb-4'>
-                            <OptionSelector options={smokeOption} label="🚬 How often do you smoke" visibleCount={2} selectedOption={selectedSmokeOption} onSelect={onSelectedSmokeOption} />
-                        </div>
-
-                        <div className='mb-4'>
-                            <OptionSelector options={workoutOption} label="💪 Do you workout?" visibleCount={1} selectedOption={selectedWorkoutOption} onSelect={onSelectedWorkoutOption} />
-                        </div>
-
-                        <div className='mb-4'>
-                            <OptionSelector options={petOption} label="🐈 Do you have any pets?" visibleCount={2} selectedOption={selectedpetOption} onSelect={onSelectedPetOption} />
-                        </div>
-
+                        {
+                            Object.keys(selectOption).slice(1).map((selectionKey: any, selectionIndex) => {
+                                return <div className='mb-4' key={selectionKey + selectionIndex}>
+                                    <OptionSelector options={selectOption[selectionKey].list} label={selectOption[selectionKey].label} visibleCount={selectOption[selectionKey].visibleCount} selectedOption={selectOption[selectionKey].selectedValue} onSelect={(value) => onSelection(value, selectionKey)} />
+                                </div>
+                            })
+                        }
                     </div>
                 </div>
             </div>
