@@ -138,6 +138,9 @@ const DesktopView = () => {
         },
 
     ]
+    const imageListInit = Array.from({ length: 6 }).fill({ imageuri: '', file: '' })
+    const [imageList, setImageList] = useState(imageListInit)
+
 
     const onGenderSelection = useCallback((genderType: string) => {
         setGender(genderType)
@@ -162,7 +165,23 @@ const DesktopView = () => {
 
     const onSelectedPetOption = useCallback((genderType: string) => {
         setSelectedPetOption(genderType)
-    }, [])
+    }, []);
+
+    const handleImageUpload = (event: any, index: any) => {
+        console.log('index', index)
+        const file = event.target.files[0];
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+
+            // Create a new array and update the specific index
+            const newImageList = imageList.map((item: any, i: number) =>
+                i === index ? { ...item, imageuri: imageUrl, file: file } : item
+            );
+
+            setImageList(newImageList)
+        }
+    }
+    console.log('imageList', imageList)
     return (
         <>
             <div className="flex flex-col items-center min-h-screen bg-gray-100 px-4">
@@ -223,7 +242,7 @@ const DesktopView = () => {
                         <div className="col-span-6" >
                             <Typography variant="subtitle1" className="mb-2">Profile Photos</Typography>
                             <div className="flex flex-wrap">
-                                {[...Array(6)].map((_, index) => (
+                                {imageList.map((imgobj: any, index: any) => (
                                     <>
                                         <input
                                             type="file"
@@ -231,12 +250,15 @@ const DesktopView = () => {
                                             key={index}
                                             id={`file-upload-${index}`}
                                             className="hidden"
+                                            onChange={(e) => handleImageUpload(e, index)}
                                         />
                                         <label
                                             htmlFor={`file-upload-${index}`}
                                             className="w-26 h-28 my-2 mx-2 border-dashed border-2 border-gray-400 flex justify-center items-center rounded-lg cursor-pointer bg-gray-300 relative"
                                         >
-                                            <span className="text-gray-500"></span>
+                                            <span className="text-gray-500">
+                                                {imgobj?.imageuri && <img src={imgobj?.imageuri} className="h-27 w-26 rounded-lg" />}
+                                            </span>
                                             <div className="absolute -bottom-2 -right-2 w-5 h-5 rounded-2xl bg-red-500 text-white flex items-center justify-center">+</div>
                                         </label>
                                     </>
