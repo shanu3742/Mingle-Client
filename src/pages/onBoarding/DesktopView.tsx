@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { useCallback, useState } from "react";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -157,7 +157,35 @@ const DesktopView = () => {
             selectedValue: '',
             label: '🐈 Do you have any pets?',
             visibleCount: 2
-        }
+        },
+        interested: {
+            list: ["Harry Potter", "SoundCloud", "Spa", "Self Care", "Heavy Metal", "House Parties",
+                "Gin tonic", "Gymnastics", "Ludo", "Maggi", "Hot Yoga", "Documentaries",
+                "Biryani", "Drama shows", "Meditation", "Foodie", "Sushi", "Spotify", "Hockey",
+                "Basketball", "Fantasy movies", "Slam Poetry", "Home Workout", "Theater",
+                "Cafe hopping", "Sneakers", "Aquarium", "Instagram", "Hot Springs", "Walking",
+                "Running", "Travel", "Language Exchange", "Movies", "Action movies",
+                "Animated movies", "Crime shows"],
+            selectedValue: '',
+            label: '🧭 What are you into?',
+            visibleCount: 3
+        },
+        education: {
+            list: ["Bachelors", "In College", "High School",
+                "PhD", "In Grad School", "Masters",
+                "Trade School"],
+            selectedValue: '',
+            label: '📙What is your education level?',
+            visibleCount: 2
+        },
+        zodiacSign: {
+            list: ["Capricorn", "Aquarius", "Pisces", "Aries",
+                "Taurus", "Gemini", "Cancer", "Leo",
+                "Virgo", "Libra", "Scorpio", "Sagittarius"],
+            selectedValue: '',
+            label: 'What is your zodiac sign?',
+            visibleCount: 2
+        },
     })
 
 
@@ -198,8 +226,9 @@ const DesktopView = () => {
         <>
             <div className="flex flex-col items-center min-h-screen bg-gray-100 px-4">
 
-                <h1 className="text-center font-bold my-4">
-                    Profile Details
+                <h1 className="font-bold my-4 sticky top-0 bg-gray-100 w-full h-10 flex items-center justify-center z-40">
+
+                    <Typography sx={{ color: "text.secondary", }}>Profile Details</Typography>
                 </h1>
 
                 <div className="w-5/6">
@@ -287,6 +316,9 @@ const DesktopView = () => {
                             })
                         }
                     </div>
+                </div>
+                <div className="fixed bottom-2 right-2">
+                    <Button variant="contained">Submit</Button>
                 </div>
             </div>
         </>
