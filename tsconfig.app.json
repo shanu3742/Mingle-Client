@@ -26,6 +26,7 @@
       "@config/*": ["src/config/*"],
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
+      "@feature/*": ["src/feature/*"],
       "@utils/*": ["src/utils/*"],
       "@guard/*": ["src/guard/*"],
       "@layout/*": ["src/layout/*"],
