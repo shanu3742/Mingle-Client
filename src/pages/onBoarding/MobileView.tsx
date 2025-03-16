@@ -1,7 +1,7 @@
 import { AuthInterface, useAuth } from "@context/authContext";
 import { IInitialState, onSelection, setImage, setInput } from "@feature/OnBoarding.slice";
 import { useAppDispatch, useAppSelector } from "@hooks/store.hooks";
-import { LinearProgress, Tab, Tabs, TextField, Typography } from "@mui/material";
+import { Button, LinearProgress, Tab, Tabs, TextField, Typography } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -14,6 +14,7 @@ const MobileView = () => {
 
     const { user } = useAuth() as AuthInterface;
     const onBoardingForm = useAppSelector((selector) => selector.onBoarding);
+    let formLength = (Object.keys(onBoardingForm).length - 1) + Object.keys(onBoardingForm.selection).length
     const dispatch = useAppDispatch();
 
     const handleSelection = useCallback((value: string, keyToUpdate: any) => {
@@ -75,11 +76,29 @@ const MobileView = () => {
                     return prev - 1
                 }
             })
+
         }
     };
-    let formLength = (Object.keys(onBoardingForm).length - 1) + Object.keys(onBoardingForm.selection).length
-    let percentPerIndex = 100 / formLength
-    console.log(selectedTabIndex)
+
+    let percentPerIndex = 100 / (formLength - 1)
+    const [disabled, setDisabled] = useState(true)
+
+
+    useEffect(() => {
+        const onDisabled = () => {
+            if (selectedTabIndex === 0) return !onBoardingForm.firstName.selectedValue;
+            if (selectedTabIndex === 2) return !onBoardingForm.birthday.selectedValue;
+            if (selectedTabIndex === 1) return false;
+            if (selectedTabIndex === 3) return !onBoardingForm.selection.gender.selectedValue;
+
+            let keys = Object.keys(onBoardingForm.selection).slice(1);
+            let selectedKey = keys[selectedTabIndex - 4];
+            return selectedKey ? !(onBoardingForm.selection as any)[selectedKey]?.selectedValue : true;
+        };
+
+        setDisabled(onDisabled());
+    }, [onBoardingForm, selectedTabIndex]);
+
     return (
         <div className="flex min-h-screen flex-col  bg-gray-100 px-2">
             <div className="fixed top-0 left-0">
@@ -98,7 +117,7 @@ const MobileView = () => {
                 >
 
                     <Tab value="dec" label={<>👈<br /> Previous</>} onClick={() => handleTabIncDec('dec')} />
-                    <Tab value="inc" label={<>👉 <br /> Next</>} onClick={() => handleTabIncDec('inc')} />
+                    <Tab disabled={disabled!} value="inc" label={<>👉 <br /> Next</>} onClick={() => handleTabIncDec('inc')} sx={{ display: formLength - 1 === selectedTabIndex ? 'none' : 'block' }} />
 
                 </Tabs>
             </div>
@@ -194,6 +213,10 @@ const MobileView = () => {
                                         </label>
                                     </Fragment>
                                 ))}
+                            </div>
+
+                            <div className="fixed bottom-2 right-2">
+                                <Button variant="contained">Submit</Button>
                             </div>
                         </div>
                     </div>
