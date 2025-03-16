@@ -1,12 +1,14 @@
 import { AuthInterface, useAuth } from "@context/authContext";
 import { IInitialState, onSelection, setImage, setInput } from "@feature/OnBoarding.slice";
 import { useAppDispatch, useAppSelector } from "@hooks/store.hooks";
-import { Tab, Tabs, TextField, Typography } from "@mui/material";
+import { LinearProgress, Tab, Tabs, TextField, Typography } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import OptionSelector from "@components/OptionSelector";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { red } from "@mui/material/colors";
 
 const MobileView = () => {
 
@@ -26,10 +28,10 @@ const MobileView = () => {
     };
 
     useEffect(() => {
-        let value = (user as any).email;
+        let value = (user as any)?.email;
         let name: keyof Omit<IInitialState, 'selection' | 'image'> = 'email';
         dispatch(setInput({ name, value }));
-    }, [(user as any).email]);
+    }, [(user as any)?.email]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let name: keyof Omit<IInitialState, 'selection' | 'image'> = e.target.name as keyof Omit<IInitialState, 'selection' | 'image'>;
@@ -75,12 +77,17 @@ const MobileView = () => {
             })
         }
     };
-
-
+    let formLength = (Object.keys(onBoardingForm).length - 1) + Object.keys(onBoardingForm.selection).length
+    let percentPerIndex = 100 / formLength
     console.log(selectedTabIndex)
     return (
-        <div className="flex min-h-screen flex-col  bg-gray-100">
-            <div className="min-w-screen">
+        <div className="flex min-h-screen flex-col  bg-gray-100 px-2">
+            <div className="fixed top-0 left-0">
+                <div className="min-w-screen">
+                    <LinearProgress variant="determinate" value={selectedTabIndex * percentPerIndex} />
+                </div>
+            </div>
+            <div >
                 <Tabs
                     value={selectedTab}
                     onChange={handleTabChange}
@@ -112,7 +119,7 @@ const MobileView = () => {
                             <label htmlFor="email" className="mb-1">
                                 <Typography sx={{ color: "text.secondary", mb: 1 }}>{onBoardingForm.email.label}</Typography>
                             </label>
-                            <TextField id="email" name="email" variant="outlined" value={(user as any).email} size="small" fullWidth disabled />
+                            <TextField id="email" name="email" variant="outlined" value={(user as any)?.email} size="small" fullWidth disabled />
                         </div>
                     </div>
                 }
@@ -155,54 +162,40 @@ const MobileView = () => {
                         </div>
                     </div>
                 }
+
                 {
-                    selectedTabIndex === 4 && <div className={`${selectedTab === 'inc' ? 'forward' : 'backward'}`}>
-                        {selectedTabIndex}
-                    </div>
+                    // selectedTabIndex === 4 && <div className={`${selectedTab === 'inc' ? 'forward' : 'backward'}`}>
+                    //     {selectedTabIndex}
+                    // </div>
+                    <>
+                        {Object.keys(onBoardingForm.selection).slice(1).map((selectionKey: any, selectionIndex: number) => (
+                            selectedTabIndex === selectionIndex + 4 && <div className={`my-4 ${selectedTab === 'inc' ? 'forward' : 'backward'}`} key={selectionKey + selectionIndex}>
+                                <OptionSelector options={(onBoardingForm.selection as any)[selectionKey].list} label={(onBoardingForm.selection as any)[selectionKey].label} visibleCount={(onBoardingForm.selection as any)[selectionKey].visibleCount} selectedOption={(onBoardingForm.selection as any)[selectionKey].selectedValue} onSelect={(value) => handleSelection(value, selectionKey)} />
+                            </div>
+                        ))}
+                    </>
                 }
-                {
-                    selectedTabIndex === 5 && <div className={`${selectedTab === 'inc' ? 'forward' : 'backward'}`}>
-                        {selectedTabIndex}
-                    </div>
-                }
-                {
-                    selectedTabIndex === 6 && <div className={`${selectedTab === 'inc' ? 'forward' : 'backward'}`}>
-                        {selectedTabIndex}
-                    </div>
-                }
-                {
-                    selectedTabIndex === 7 && <div className={`${selectedTab === 'inc' ? 'forward' : 'backward'}`}>
-                        {selectedTabIndex}
-                    </div>
-                }
-                {
-                    selectedTabIndex === 8 && <div className={`${selectedTab === 'inc' ? 'forward' : 'backward'}`}>
-                        {selectedTabIndex}
-                    </div>
-                }
-                {
-                    selectedTabIndex === 9 && <div className={`${selectedTab === 'inc' ? 'forward' : 'backward'}`}>
-                        {selectedTabIndex}
-                    </div>
-                }
-                {
-                    selectedTabIndex === 10 && <div className={`${selectedTab === 'inc' ? 'forward' : 'backward'}`}>
-                        {selectedTabIndex}
-                    </div>
-                }
-                {
-                    selectedTabIndex === 11 && <div className={`${selectedTab === 'inc' ? 'forward' : 'backward'}`}>
-                        {selectedTabIndex}
-                    </div>
-                }
-                {
-                    selectedTabIndex === 12 && <div className={`${selectedTab === 'inc' ? 'forward' : 'backward'}`}>
-                        {selectedTabIndex}
-                    </div>
-                }
+
                 {
                     selectedTabIndex === 13 && <div className={`${selectedTab === 'inc' ? 'forward' : 'backward'}`}>
-                        {selectedTabIndex}
+                        <div >
+                            <Typography variant="subtitle1" className="mb-2">{onBoardingForm.image.label}</Typography>
+                            <div className="flex flex-wrap justify-center">
+                                {onBoardingForm.image.list.map((imgobj: any, index: any) => (
+                                    <Fragment key={(imgobj.url ?? '') + index}>
+                                        <input type="file" accept="image/png, image/jpeg" key={index} id={`file-upload-${index}`} className="hidden" onChange={(e) => handleImageUpload(e, index)} />
+                                        <label htmlFor={`file-upload-${index}`} className="w-24 h-28 my-2 mx-2 border-dashed border-2 border-gray-400 flex justify-center items-center rounded-lg cursor-pointer bg-gray-300 relative">
+                                            <span className="text-gray-500">
+                                                {imgobj?.imageuri && <img src={imgobj?.imageuri} className="h-27 w-24 rounded-lg" />}
+                                            </span>
+                                            <div className="absolute -bottom-2 -right-2 rounded-full bg-white flex">
+                                                <AddCircleIcon sx={{ color: red[500] }} />
+                                            </div>
+                                        </label>
+                                    </Fragment>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 }
             </div>

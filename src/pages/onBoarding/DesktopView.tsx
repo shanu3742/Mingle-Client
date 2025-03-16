@@ -7,6 +7,8 @@ import OptionSelector from "@components/OptionSelector";
 import { useAppDispatch, useAppSelector } from "@hooks/store.hooks";
 import { IInitialState, onSelection, setImage, setInput } from "@feature/OnBoarding.slice";
 import { AuthInterface, useAuth } from "@context/authContext";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { red } from "@mui/material/colors";
 
 const DesktopView = () => {
     const { user } = useAuth() as AuthInterface;
@@ -113,7 +115,9 @@ const DesktopView = () => {
                                             <span className="text-gray-500">
                                                 {imgobj?.imageuri && <img src={imgobj?.imageuri} className="h-27 w-26 rounded-lg" />}
                                             </span>
-                                            <div className="absolute -bottom-2 -right-2 w-5 h-5 rounded-2xl bg-red-500 text-white flex items-center justify-center">+</div>
+                                            <div className="absolute -bottom-2 -right-2 rounded-full bg-white flex">
+                                                <AddCircleIcon sx={{ color: red[500] }} />
+                                            </div>
                                         </label>
                                     </Fragment>
                                 ))}

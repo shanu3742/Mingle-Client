@@ -8,7 +8,7 @@ import SignUp from '@pages/SignUp';
 import Chat from '@pages/Chat';
 import ForgetPassword from '@pages/ForgetPassword';
 import PageNotFound from '@pages/PageNotFound';
-import OnBoarding from '@pages/onBoarding';
+import OnBoarding from '@pages/OnBoarding';
 import Landing from '@pages/Landing';
 import SignIn from '@pages/SignIn';
 
