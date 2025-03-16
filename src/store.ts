@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import onBoardingReducer from '@feature/onBoarding.slice'
+import onBoardingReducer from '@feature/OnBoarding.slice'
 
 // ...
 

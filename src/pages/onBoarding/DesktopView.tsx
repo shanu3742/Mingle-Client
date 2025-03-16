@@ -5,7 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import OptionSelector from "@components/OptionSelector";
 import { useAppDispatch, useAppSelector } from "@hooks/store.hooks";
-import { IInitialState, onSelection, setImage, setInput } from "@feature/onBoarding.slice";
+import { IInitialState, onSelection, setImage, setInput } from "@feature/OnBoarding.slice";
 import { AuthInterface, useAuth } from "@context/authContext";
 
 const DesktopView = () => {

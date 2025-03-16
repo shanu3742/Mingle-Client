@@ -1,0 +1,43 @@
+.tab-conatainer{
+    [role="tablist"]{
+        justify-content: space-between;
+    }
+}
+.tab-page-view{
+    // background-color: yellow;
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+}
+.backward{
+    width: 100%;
+    flex-grow: 1;
+    // background: rgb(129, 219, 165);   
+    animation: backward-animation 0.2s;
+}
+
+.forward{
+    width: 100%;
+    flex-grow: 1;
+    // background: red; 
+    animation: forwards-animation 0.2s;
+}
+@keyframes forwards-animation {
+    from{
+        transform:  translate(-100%);
+    }
+    to{
+        transform:  translate(0%);
+    }
+    
+}
+
+@keyframes backward-animation {
+    from{
+        transform:  translate(100%);
+    }
+    to{
+        transform:  translate(0%);
+    }
+    
+}

@@ -19,7 +19,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="App">
+      <div className="app">
         <ToastContainer />
         <AuthProvider>
           <PageSliderLayout>
